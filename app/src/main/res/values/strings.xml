@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">OJTApp</string>
+    <string name="chevron_right">chevron_right</string>
+    <string name="divider">Divider</string>
+    <string name="home">Home</string>
+    <string name="back">back</string>
+    <string name="product_code">Product Code</string>
+    <string name="product_name">Product Name</string>
+    <string name="update">Update</string>
+    <string name="add">add</string>
+    <string name="uom">UOM</string>
+    <string name="create_product">Create Product</string>
+    <string name="uom_hint">Add UOM Category</string>
+    <string name="add_uom">Add UOM</string>
+    <string name="delete_uom">Delete</string>
+    <string name="select_id_to_delete">--Select product name to delete--</string>
+    <string name="more">More</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="units_of_measure">Units Of Measure</string>
+    <string name="title_background">TITLE_BACKGROUND</string>
+    <string name="number_of_products"># of\nproducts</string>
+    <string name="products_name_and_code"><![CDATA[Products name\n& code]]></string>
+    <string name="title_create_product">Create Product</string>
+    <string name="title_delete">Delete UOM</string>
+    <string name="swipe_up">Swipe Helper</string>
+    <string name="price">Price</string>
+    <string name="edit">Edit</string>
+    <string name="select_uom_to_delete">-- Select UOM to delete --</string>
+    <string name="actions">Actions</string>
+    <string name="add_uom_category">Add UOM Category</string>
+    <string name="delete_uom_category">Delete UOM Category</string>
+    <string name="view_list_of_products">View List of Products</string>
+    <string name="update_uom">Update UOM</string>
+    <string name="id">ID</string>
+    <string name="edit_uom">Edit UOM</string>
+    <string name="delete">Delete</string>
+    <string name="deletes_uom">Delete UOM</string>
+</resources>
