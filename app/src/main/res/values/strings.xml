@@ -9,7 +9,7 @@
     <string name="update">Update</string>
     <string name="add">add</string>
     <string name="uom">UOM</string>
-    <string name="create_product">Create Product</string>
+    <string name="create_product">Create</string>
     <string name="uom_hint">Add UOM Category</string>
     <string name="add_uom">Add UOM</string>
     <string name="delete_uom">Delete</string>
@@ -25,13 +25,13 @@
     <string name="title_delete">Delete UOM</string>
     <string name="swipe_up">Swipe Helper</string>
     <string name="price">Price</string>
-    <string name="edit">Edit</string>
-    <string name="select_uom_to_delete">-- Select UOM to delete --</string>
+    <string name="edit">Edit Product</string>
+    <string name="select_uom_to_delete">Select UOM to delete</string>
     <string name="actions">Actions</string>
     <string name="add_uom_category">Add UOM Category</string>
     <string name="delete_uom_category">Delete UOM Category</string>
     <string name="view_list_of_products">View List of Products</string>
-    <string name="update_uom">Update UOM</string>
+    <string name="update_uom">Update</string>
     <string name="id">ID</string>
     <string name="edit_uom">Edit UOM</string>
     <string name="delete">Delete</string>

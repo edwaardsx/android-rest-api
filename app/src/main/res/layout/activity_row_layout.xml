@@ -6,10 +6,6 @@
         <variable
             name="ProductsItem"
             type="com.magdaraog.engagia.ojtapp.Products" />
-
-        <variable
-            name="index"
-            type="String" />
     </data>
 
     <RelativeLayout
@@ -26,32 +22,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_marginHorizontal="25dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="#"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:hint="0"
-                    android:text="@{index}"
-                    android:textSize="12sp"
-                    android:textStyle="italic"/>
-
-            </LinearLayout>
                 <LinearLayout
                     android:gravity="center"
                     android:layout_width="wrap_content"
@@ -84,7 +57,6 @@
 
                     <ImageView
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_chevron_right"

@@ -20,29 +20,20 @@ class ProductsAdapter(var context: Context, private var data: List<Products>) : 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsAdapter.MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
         val productsItemBinding = ActivityRowLayoutBinding.inflate(inflater, parent, false)
         return MyViewHolder(productsItemBinding)
-
     }
 
     override fun onBindViewHolder(holder: ProductsAdapter.MyViewHolder, position: Int) {
         holder.bind(data[position])
-
         holder.itemView.setOnClickListener {
-
             val intent = Intent(context, ProductsViewActivity::class.java)
-
             intent.putExtra("ProdIDTemp", data[position].prodID.toString())
             intent.putExtra("ProdCodeTemp", data[position].prodCode)
             intent.putExtra("ProdNameTemp", data[position].prodName)
-
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
-
         }
-        val incrementedPosition = position + 1
-        holder.binding.index = incrementedPosition.toString()
     }
 
     class ProductsDiffUtil : DiffUtil.ItemCallback<Products>() {

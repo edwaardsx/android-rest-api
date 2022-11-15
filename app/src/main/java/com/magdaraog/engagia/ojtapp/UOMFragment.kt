@@ -28,19 +28,16 @@ class UOMFragment : BottomSheetDialogFragment()
             binding.etProductCodeUom.setText(it)
         }
 
-        productsViewModel.getUOMcategories()?.observe(this){
-
+        productsViewModel.getUOMcategories()?.observe(this) {
             val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
                 binding.root.context,
                 R.layout.simple_dropdown_item_1line,
                 it
             )
-
             if (it.isNotEmpty()){
                 binding.etUnitsOfMeasureUom.isEnabled = true
                 binding.etUnitsOfMeasureUom.setAdapter(adapter)
                 binding.etUnitsOfMeasureUom.inputType = 0
-                /*binding.etUnitsOfMeasureUom.hint = "Select UOM category"*/
             }else{
                 binding.etUnitsOfMeasureUom.hint = "No UOM to be selected"
                 binding.etUnitsOfMeasureUom.isEnabled = false
@@ -62,7 +59,6 @@ class UOMFragment : BottomSheetDialogFragment()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAddUomBinding.inflate(inflater,container,false)
-
         return binding.root
     }
 }

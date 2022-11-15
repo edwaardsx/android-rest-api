@@ -17,21 +17,16 @@ class DeleteUOMActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         deleteUOMBinding = ActivityDeleteUomBinding.inflate(layoutInflater)
         setContentView(deleteUOMBinding.root)
-
         productsViewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
-
         productsViewModel.initUOMcategs()
-
         productsViewModel.getUOMcategories()?.observe(this) {
             val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
                 deleteUOMBinding.root.context,
                 R.layout.simple_dropdown_item_1line,
                 it
             )
-
             if (it.isNotEmpty()) {
                 deleteUOMBinding.btnDeleteUom.isEnabled = true
                 deleteUOMBinding.btnDeleteUom.setTextColor(Color.WHITE)
@@ -43,8 +38,6 @@ class DeleteUOMActivity : AppCompatActivity() {
                 deleteUOMBinding.atvDeleteUom.isEnabled = false
                 deleteUOMBinding.btnDeleteUom.isEnabled = false
             }
-
-
         }
 
         deleteUOMBinding.btnUOMBack.setOnClickListener{
@@ -53,11 +46,8 @@ class DeleteUOMActivity : AppCompatActivity() {
         }
 
         deleteUOMBinding.btnDeleteUom.setOnClickListener {
-
             productsViewModel.deleteCategory(deleteUOMBinding.atvDeleteUom.text.toString())
-
         }
-
     }
 
     @Deprecated("Deprecated in Java")

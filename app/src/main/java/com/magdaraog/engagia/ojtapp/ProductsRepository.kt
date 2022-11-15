@@ -3,7 +3,8 @@ package com.magdaraog.engagia.ojtapp
 import android.net.TrafficStats
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.json.JSONArray
@@ -17,7 +18,7 @@ import java.net.URL
 
 class ProductsRepository {
 
-    private var ipAddress: String = "192.168.100.14:8765"
+    private var ipAddress: String = "192.168.100.7:8765"
     private var tableListURL: String = "http://$ipAddress/productsTable/tablelist.json"
     private var addURL = "http://$ipAddress/productsTable/add.json"
     private var updateProductURL = "http://$ipAddress/productsTable/edit/"
@@ -30,13 +31,12 @@ class ProductsRepository {
     private var updateUOMurl = "http://$ipAddress/productsTable/edituom/"
     private var deleteUOMurl = "http://$ipAddress/productsTable/deleteuomrecord/"
 
-
     private val dataSet = java.util.ArrayList<Products>()
     private val uomDataSet = java.util.ArrayList<ProductsUOM>()
     private val uomCategSet = java.util.ArrayList<String>()
     private val uomProductIDSet = java.util.ArrayList<String>()
 
-    companion object{
+    companion object {
         private var instance: ProductsRepository? = null
         fun getInstance() = instance
             ?: ProductsRepository().also {
@@ -66,16 +66,14 @@ class ProductsRepository {
     }
 
     fun getUOMIds(prodcode: String?): MutableLiveData<List<String>> {
-
         fetchUOMIds(prodcode)
-
         val data: MutableLiveData<List<String>> = MutableLiveData()
         data.value = uomProductIDSet
         return data
     }
 
     fun createProducts(prodCode: String?, prodName: String?) {
-        val job = GlobalScope.launch {
+        val job = CoroutineScope(IO).launch {
             httpPost(addURL, prodCode, prodName)
         }
         runBlocking {
@@ -85,7 +83,7 @@ class ProductsRepository {
     }
 
     fun createUOMCategory(category: String?) {
-        val job = GlobalScope.launch {
+        val job = CoroutineScope(IO).launch {
             httpPostForUOMcategs(addCategsURL, category)
         }
         runBlocking {
@@ -94,7 +92,7 @@ class ProductsRepository {
     }
 
     fun createUOM(prodCode: String?, uom: String?, price: String?) {
-        val job = GlobalScope.launch {
+        val job = CoroutineScope(IO).launch {
             httpPostForUOM(addUOMurl, prodCode, uom, price)
         }
         runBlocking {
@@ -103,7 +101,7 @@ class ProductsRepository {
     }
 
     fun updateProducts(prodID: String?, prodCode: String?, prodName: String?) {
-        val job = GlobalScope.launch {
+        val job = CoroutineScope(IO).launch {
             httpPost("$updateProductURL$prodID.json", prodCode, prodName)
         }
         runBlocking {
@@ -113,7 +111,7 @@ class ProductsRepository {
     }
 
     fun updateUOM(UOMId: String?, prodCode: String?, UOM: String?, price: String?) {
-        val job = GlobalScope.launch {
+        val job = CoroutineScope(IO).launch {
             httpPostForUOM("$updateUOMurl$UOMId.json", prodCode, UOM, price)
         }
         runBlocking {
@@ -123,7 +121,7 @@ class ProductsRepository {
     }
 
     fun deleteProducts(prodID: String?) {
-        val job = GlobalScope.launch {
+        val job = CoroutineScope(IO).launch {
             httpDelete(deleteProductURL, prodID)
         }
         runBlocking {
@@ -133,32 +131,25 @@ class ProductsRepository {
     }
 
     fun deleteCateg(categ: String?) {
-        GlobalScope.launch {
+        CoroutineScope(IO).launch {
             httpDelete(deleteUOMurlCategs, categ)
         }
     }
 
     fun deleteUOM(UOMId: String?) {
-
-        GlobalScope.launch {
+        CoroutineScope(IO).launch {
             httpDelete(deleteUOMurl, UOMId)
         }
     }
 
     private fun fetchProducts() {
-
-        val job = GlobalScope.launch {
-
+        val job = CoroutineScope(IO).launch {
             val output = httpGet(tableListURL)
             val obj = JSONObject(output)
             val userArray: JSONArray = obj.getJSONArray("products")
-
             dataSet.clear()
-
             for (i in 0 until userArray.length()) {
-
                 val productsDetail: JSONObject = userArray.getJSONObject(i)
-
                 dataSet.add(Products(productsDetail.getString("id").toInt(), productsDetail.getString("product_code"),
                     productsDetail.getString("product_name")))
             }
@@ -168,20 +159,14 @@ class ProductsRepository {
         }
     }
 
-    private fun fetchUOMcategs(){
-
-        val job = GlobalScope.launch {
-
+    private fun fetchUOMcategs() {
+        val job = CoroutineScope(IO).launch {
             val output = httpGet(categListURL)
             val obj = JSONObject(output)
             val userArray: JSONArray = obj.getJSONArray("uom")
-
             uomCategSet.clear()
-
             for (i in 0 until userArray.length()) {
-
                 val productsDetail: JSONObject = userArray.getJSONObject(i)
-
                 uomCategSet.add(productsDetail.getString("categories"))
             }
         }
@@ -190,20 +175,14 @@ class ProductsRepository {
         }
     }
 
-    private fun fetchUOM(prodCode: String?){
-
-        val job = GlobalScope.launch {
-
+    private fun fetchUOM(prodCode: String?) {
+        val job = CoroutineScope(IO).launch {
             val output = httpGet("$uomUrl$prodCode.json")
             val obj = JSONObject(output)
             val userArray: JSONArray = obj.getJSONArray("productUnitOfMeasures")
-
             uomDataSet.clear()
-
             for (i in 0 until userArray.length()) {
-
                 val productsDetail: JSONObject = userArray.getJSONObject(i)
-
                 uomDataSet.add(ProductsUOM(productsDetail.getString("id").toInt(), productsDetail.getString("product_code"),
                     productsDetail.getString("unit_of_measure"), productsDetail.getString("price")))
             }
@@ -214,19 +193,13 @@ class ProductsRepository {
     }
 
     private fun fetchUOMIds(prodCode: String?){
-
-        val job = GlobalScope.launch {
-
+        val job = CoroutineScope(IO).launch {
             val output = httpGet("$uomUrl$prodCode.json")
             val obj = JSONObject(output)
             val userArray: JSONArray = obj.getJSONArray("productUnitOfMeasures")
-
           uomProductIDSet.clear()
-
             for (i in 0 until userArray.length()) {
-
                 val productsDetail: JSONObject = userArray.getJSONObject(i)
-
                 uomProductIDSet.add(productsDetail.getString("id"))
             }
         }
@@ -236,15 +209,11 @@ class ProductsRepository {
     }
 
     private fun httpGet(myURL: String?): String {
-
         val inputStream: InputStream
-
         val url = URL(myURL)
         val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
-
         conn.connect()
         inputStream = conn.inputStream
-
         return if (inputStream != null)
             convertInputStreamToString(inputStream)
         else
@@ -252,86 +221,57 @@ class ProductsRepository {
     }
 
     private fun httpPost(myURL: String?, prodCode: String?, prodName: String?): String {
-
         val result:String
-
         TrafficStats.setThreadStatsTag(Thread.currentThread().id.toInt())
-
         val url = URL(myURL)
         val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
-
         urlConnection.readTimeout = 30000
         urlConnection.connectTimeout = 30000
-
         val builder: Uri.Builder = Uri.Builder()
             .appendQueryParameter("product_code", prodCode)
             .appendQueryParameter("product_name", prodName)
-
         val query: String? = builder.build().encodedQuery
-
         urlConnection.requestMethod = "POST"
         urlConnection.doInput = true
         urlConnection.doOutput = true
         urlConnection.connect()
-
-        val wr = DataOutputStream(
-            urlConnection.outputStream
-        )
-
+        val wr = DataOutputStream(urlConnection.outputStream)
         wr.writeBytes(query)
         wr.flush()
         wr.close()
-
         val isNew: InputStream = urlConnection.inputStream
         BufferedReader(InputStreamReader(isNew))
-
         result = convertInputStreamToString(isNew)
-
         return result
     }
 
     private fun httpPostForUOMcategs(myURL: String?, category: String?): String {
-
         val result:String
-
         TrafficStats.setThreadStatsTag(Thread.currentThread().id.toInt())
-
         val url = URL(myURL)
         val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
-
         urlConnection.readTimeout = 30000
         urlConnection.connectTimeout = 30000
-
         val builder: Uri.Builder = Uri.Builder()
             .appendQueryParameter("categories", category)
-
         val query: String? = builder.build().encodedQuery
-
         urlConnection.requestMethod = "POST"
         urlConnection.doInput = true
         urlConnection.doOutput = true
         urlConnection.connect()
-
         val wr = DataOutputStream(urlConnection.outputStream)
-
         wr.writeBytes(query)
         wr.flush()
         wr.close()
-
         val isNew: InputStream = urlConnection.inputStream
         BufferedReader(InputStreamReader(isNew))
-
         result = convertInputStreamToString(isNew)
-
         return result
     }
 
     private fun httpPostForUOM(myURL: String?, prodCode: String?, uom: String?, price: String?): String {
-
         val result:String
-
         TrafficStats.setThreadStatsTag(Thread.currentThread().id.toInt())
-
         val url = URL(myURL)
         val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
         urlConnection.readTimeout = 30000
@@ -341,55 +281,40 @@ class ProductsRepository {
             .appendQueryParameter("unit_of_measure", uom)
             .appendQueryParameter("price", price)
         val query: String? = builder.build().encodedQuery
-
         urlConnection.requestMethod = "POST"
         urlConnection.doInput = true
         urlConnection.doOutput = true
         urlConnection.connect()
-
         val wr = DataOutputStream(urlConnection.outputStream)
         wr.writeBytes(query)
         wr.flush()
         wr.close()
         val isNew: InputStream = urlConnection.inputStream
         BufferedReader(InputStreamReader(isNew))
-
         result = convertInputStreamToString(isNew)
-
         return result
     }
 
     private fun httpDelete(myURL: String?, prodID: String?): String {
-
         val result: String
-
         TrafficStats.setThreadStatsTag(Thread.currentThread().id.toInt())
-
         val url = URL("$myURL$prodID.json")
-
         val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
-
         urlConnection.readTimeout = 30000
         urlConnection.connectTimeout = 30000
-
         urlConnection.requestMethod = "DELETE"
         urlConnection.doInput = true
         urlConnection.doOutput = true
         urlConnection.connect()
-
         val isNew: InputStream = urlConnection.inputStream
-
         result = convertInputStreamToString(isNew)
-
         return result
     }
 
     private fun convertInputStreamToString(inputStream: InputStream): String {
         val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-
         var line:String? = bufferedReader.readLine()
         var result = ""
-
         while (line != null) {
             result += line
             line = bufferedReader.readLine()

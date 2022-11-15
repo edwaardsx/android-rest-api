@@ -45,8 +45,8 @@
             android:padding="16dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_product_code"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/create_product_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:endIconMode="clear_text">
@@ -55,14 +55,12 @@
                     android:id="@+id/et_create_product_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/product_code"
-                    android:textColorHint="#546E7A"
-                    tools:ignore="TextContrastCheck" />
+                    android:hint="@string/product_code" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/create_product_name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/create_product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -72,9 +70,7 @@
                     android:id="@+id/et_create_product_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/product_name"
-                    android:textColorHint="#546E7A"
-                    tools:ignore="TextContrastCheck" />
+                    android:hint="@string/product_name" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

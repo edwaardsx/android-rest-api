@@ -11,9 +11,7 @@ import com.magdaraog.engagia.ojtapp.databinding.ActivityUomBinding
 class UOMActivity : AppCompatActivity() {
 
     private lateinit var uomBinding: ActivityUomBinding
-
     private lateinit var productViewModel: ProductsViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -8,7 +8,6 @@ class ViewProductsActivity : AppCompatActivity() {
 
     private lateinit var viewProductsBinding: ActivityListOfProductsBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewProductsBinding = ActivityListOfProductsBinding.inflate(layoutInflater)

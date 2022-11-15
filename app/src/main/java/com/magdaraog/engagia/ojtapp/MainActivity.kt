@@ -15,6 +15,10 @@ import com.magdaraog.engagia.ojtapp.databinding.ActivityMainBinding
 import com.magdaraog.engagia.ojtapp.helper.MyButton
 import com.magdaraog.engagia.ojtapp.helper.MySwipeHelper
 import com.magdaraog.engagia.ojtapp.listener.MyButtonClickListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,8 +37,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-       
-
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
@@ -47,7 +49,6 @@ class MainActivity : AppCompatActivity() {
 
         productsViewModel.getProducts()?.observe(this) {
             linkLists(productsViewModel)
-
             recyclerAdapter.setItems(it)
             recyclerAdapter.notifyDataSetChanged()
         }
@@ -59,43 +60,48 @@ class MainActivity : AppCompatActivity() {
             override fun instantiateMyButton(viewHolder: RecyclerView.ViewHolder, buffer: MutableList<MyButton>) {
                 buffer.add(MyButton(mainBinding.root.context,
                         "Delete",
-                        50,
+                        40,
                         0,
                         Color.parseColor("#FF3C30"), object : MyButtonClickListener {
                             override fun onClick(pos: Int) {
-                                productsViewModel.deleteProductValue(productIDList[pos])
-
-                                removeFromLists(pos)
-                                linkLists(productsViewModel)
-
-                                Snackbar.make(mainBinding.root, productNameList[pos] + " Deleted", Snackbar.LENGTH_LONG).setAction("Undo") {
-                                    println("Undo clicked")
-                                }.show()
+                                val job1 = CoroutineScope(IO).launch {
+                                    productsViewModel.deleteProductValue(productIDList[pos])
+                                }
+                                runBlocking {
+                                    job1.join()
+                                    Snackbar.make(mainBinding.root, productNameList[pos] + " Deleted", Snackbar.LENGTH_LONG).setAction("Undo") {
+                                        println("Undo clicked")
+                                    }.show()
+                                    removeFromLists(pos)
+                                    linkLists(productsViewModel)
+                                    recyclerAdapter.notifyItemRemoved(pos)
+                                }
                             }
                         }))
-
                 buffer.add(MyButton(mainBinding.root.context,
                         "Edit",
-                        50,
+                        40,
                         0,
                         Color.parseColor("#FF9502"), object : MyButtonClickListener {
                             override fun onClick(pos: Int) {
-
                                 BottomSheet().show(supportFragmentManager, "BottomSheetTag")
-
                                 productsViewModel.tempProductID.value = productIDList[pos]
                                 productsViewModel.tempProdCode.value = productCodeList[pos]
                                 productsViewModel.tempProdName.value = productNameList[pos]
-
-                                /*BottomSheetBehavior.from(_BottomSheetBinding.bottomSheet)
-                                    .apply {
-                                        peekHeight = 800
-                                        this.state = BottomSheetBehavior.STATE_COLLAPSED
-                                    }*/
                             }
                         })
                 )
             }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onResume() {
+        super.onResume()
+        productsViewModel.getProducts()?.observe(this) {
+            linkLists(productsViewModel)
+            recyclerAdapter.setItems(it)
+            recyclerAdapter.notifyDataSetChanged()
         }
     }
 
@@ -108,47 +114,35 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.btn_create -> {
                 val intent = Intent(applicationContext, CreateProductActivity::class.java)
-
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 applicationContext.startActivity(intent)
-
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
-
             R.id.action_create_uom -> {
                 val intent = Intent(applicationContext, UOMActivity::class.java)
-
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 applicationContext.startActivity(intent)
-
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
             R.id.action_delete_uom -> {
                 val intent = Intent(applicationContext, DeleteUOMActivity::class.java)
-
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 applicationContext.startActivity(intent)
-
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
             R.id.action_view_list_of_producsts -> {
                 val intent = Intent(applicationContext, ViewProductsActivity::class.java)
-
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 applicationContext.startActivity(intent)
-
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
-
         }
         return super.onOptionsItemSelected(item)
     }
 
     fun linkLists(PVmodel : ProductsViewModel) {
-
         val currentProducts: List<Products>? =  PVmodel.getProducts()?.value
         clearLists()
-
         for (i in 0 until currentProducts!!.size) {
             currentProducts[i].prodCode?.let {
                 currentProducts[i].prodName?.let { it1 ->

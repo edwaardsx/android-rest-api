@@ -31,19 +31,15 @@ class EditUOMFragment : BottomSheetDialogFragment()
         }
 
         productsViewModel.getUOMIds()?.observe(this){
-
-
             val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
                 binding.root.context,
                 R.layout.simple_dropdown_item_1line,
                 it
             )
-
             if (it.isNotEmpty()){
                 binding.etEditProductIdUom.isEnabled = true
                 binding.etEditProductIdUom.setAdapter(adapter)
                 binding.etEditProductIdUom.inputType = 0
-                /*binding.etUnitsOfMeasureUom.hint = "Select UOM category"*/
             }else{
                 binding.etEditProductIdUom.hint = "No UOM to be selected"
                 binding.etEditProductIdUom.isEnabled = false
@@ -51,19 +47,16 @@ class EditUOMFragment : BottomSheetDialogFragment()
             }
         }
 
-        productsViewModel.getUOMcategories()?.observe(this){
-
+        productsViewModel.getUOMcategories()?.observe(this) {
             val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
                 binding.root.context,
                 R.layout.simple_dropdown_item_1line,
                 it
             )
-
             if (it.isNotEmpty()){
                 binding.etEditUom.isEnabled = true
                 binding.etEditUom.setAdapter(adapter)
                 binding.etEditUom.inputType = 0
-                /*binding.etUnitsOfMeasureUom.hint = "Select UOM category"*/
             }else{
                 binding.etEditUom.hint = "No UOM to be selected"
                 binding.etEditUom.isEnabled = false
@@ -86,7 +79,6 @@ class EditUOMFragment : BottomSheetDialogFragment()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentEditUomBinding.inflate(inflater,container,false)
-
         return binding.root
     }
 }

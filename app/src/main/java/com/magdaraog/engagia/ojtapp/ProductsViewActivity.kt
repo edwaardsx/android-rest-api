@@ -17,11 +17,9 @@ import org.json.JSONObject
 class ProductsViewActivity : AppCompatActivity() {
 
     private lateinit var _ProductsViewBinding: ActivityProductsViewBinding
-
     private lateinit var productsViewModel: ProductsViewModel
 
     var bundle: Bundle? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,7 +73,6 @@ class ProductsViewActivity : AppCompatActivity() {
                 stk.addView(tbrow1)
 
                 for (i in 0 until it.size) {
-
                     val tbrow: TableRow = TableRow(_ProductsViewBinding.root.context)
                     val t1v: TextView = TextView(_ProductsViewBinding.root.context)
                     t1v.setText(it[i].UOMId.toString())
@@ -94,7 +91,6 @@ class ProductsViewActivity : AppCompatActivity() {
                     t4v.setPadding(25, 25, 25, 25)
                     tbrow.addView(t4v)
                     stk.addView(tbrow)
-
                 }
             }else{
                 _ProductsViewBinding.btnEdit.isVisible = false
@@ -155,7 +151,6 @@ class ProductsViewActivity : AppCompatActivity() {
         tbrow1.addView(h3v)
 
         stk.addView(tbrow1)
-
 
         val tbrow: TableRow = TableRow(_ProductsViewBinding.root.context)
         val t1v: TextView = TextView(_ProductsViewBinding.root.context)

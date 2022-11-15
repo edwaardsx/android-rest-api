@@ -1,66 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@drawable/dialog_bg"
-    tools:context=".DeleteUOMFragment">
-
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="4dp"
-        android:layout_gravity="center|top"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/darker_gray"
-        android:contentDescription="@string/swipe_up"
-        tools:ignore="RedundantDescriptionCheck" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="@string/deletes_uom"
-        android:layout_marginHorizontal="16dp"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".DeleteUOMFragment">
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:id="@+id/delete_product_id_uom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="@string/swipe_up"
+            tools:ignore="RedundantDescriptionCheck" />
 
-            <AutoCompleteTextView
-                android:id="@+id/et_delete_product_id_uom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:hint="@string/id"
-                android:inputType="none"
-                tools:ignore="SpeakableTextPresentCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btn_add_uom"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/deletes_uom"
+            android:layout_marginHorizontal="16dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="350dp"
-            android:text="@string/delete"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_custom2" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:id="@+id/delete_product_id_uom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/et_delete_product_id_uom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/id"
+                    android:focusable="false"
+                    android:inputType="none"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_add_uom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="220dp"
+                android:text="@string/delete"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_custom_delete" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</layout>

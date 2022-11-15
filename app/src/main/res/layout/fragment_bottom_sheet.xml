@@ -7,16 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/dialog_bg"
         tools:context=".BottomSheet">
-
-        <!--<FrameLayout
-            android:id="@+id/bottom_sheet"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/dialog_bg"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">-->
 
         <ImageView
             android:layout_width="40dp"
@@ -41,7 +32,7 @@
         <LinearLayout
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginHorizontal="16dp"
             android:orientation="vertical">
 
@@ -55,9 +46,7 @@
                     android:id="@+id/et_product_code_update"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="@string/product_code"
-                    android:textColorHint="#546E7A"
-                    tools:ignore="TextContrastCheck" />
+                    android:hint="@string/product_code" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -71,9 +60,7 @@
                     android:id="@+id/et_product_name_update"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="@string/product_name"
-                    android:textColorHint="#546E7A"
-                    tools:ignore="TextContrastCheck" />
+                    android:hint="@string/product_name" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -81,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="350dp"
+                android:layout_marginBottom="260dp"
                 android:text="@string/update"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_custom2" />
