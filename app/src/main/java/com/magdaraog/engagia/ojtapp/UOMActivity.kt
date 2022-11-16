@@ -20,6 +20,7 @@ class UOMActivity : AppCompatActivity() {
         setContentView(uomBinding.root)
 
         productViewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
+        productViewModel.saveStackTrace()
 
         uomBinding.etUom.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

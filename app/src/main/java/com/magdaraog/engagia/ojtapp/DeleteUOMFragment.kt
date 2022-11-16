@@ -1,8 +1,8 @@
 package com.magdaraog.engagia.ojtapp
 
+//noinspection SuspiciousImport
 import android.R
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.magdaraog.engagia.ojtapp.databinding.FragmentDeleteUomBinding
-import com.magdaraog.engagia.ojtapp.databinding.FragmentEditUomBinding
 
 class DeleteUOMFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentDeleteUomBinding
@@ -19,7 +18,10 @@ class DeleteUOMFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val activity = requireActivity()
+
         productsViewModel = ViewModelProvider(activity)[ProductsViewModel::class.java]
+        productsViewModel.saveStackTrace()
+
         productsViewModel.tempProdCode.observe(this) {
             productsViewModel.initUOMIds(it)
         }

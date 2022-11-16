@@ -23,6 +23,7 @@ class CreateProductActivity : AppCompatActivity() {
         setContentView(createBinding.root)
 
         productViewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
+        productViewModel.saveStackTrace()
 
         createBinding.etCreateProductCode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

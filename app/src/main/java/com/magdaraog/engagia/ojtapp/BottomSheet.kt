@@ -20,6 +20,7 @@ class BottomSheet : BottomSheetDialogFragment() {
         val activity = requireActivity()
 
         productsViewModel = ViewModelProvider(activity)[ProductsViewModel::class.java]
+        productsViewModel.saveStackTrace()
 
         productsViewModel.tempProductID.observe(this){
             productID = it
@@ -35,8 +36,6 @@ class BottomSheet : BottomSheetDialogFragment() {
 
         binding.btnUpdateProduct.setOnClickListener {
             productsViewModel.editProductValue(productID, binding.etProductCodeUpdate.text.toString(), binding.etProductNameUpdate.text.toString())
-            /*Snackbar.make(binding.root, " Product Edited", Snackbar.LENGTH_LONG).setAction("Undo") {
-            }.show()*/
         }
     }
 

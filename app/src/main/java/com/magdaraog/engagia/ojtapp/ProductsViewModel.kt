@@ -1,5 +1,6 @@
 package com.magdaraog.engagia.ojtapp
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,13 +11,14 @@ class ProductsViewModel : ViewModel() {
 
     private var products: MutableLiveData<List<Products>>? = null
     private var productsUOM: MutableLiveData<List<ProductsUOM>>? = null
-
     private var uomCategories: MutableLiveData<List<String>>? = null
     private var uomProductIDs: MutableLiveData<List<String>>? = null
 
     var tempProductID = MutableLiveData<String>()
     var tempProdCode = MutableLiveData<String>()
     var tempProdName = MutableLiveData<String>()
+
+    private lateinit var defaultUncaughtExceptionHandler: Thread.UncaughtExceptionHandler
 
     private var productsRepository: ProductsRepository? = null
 
@@ -149,6 +151,29 @@ class ProductsViewModel : ViewModel() {
         productsRepository = ProductsRepository.getInstance()
         CoroutineScope(IO).launch {
             productsRepository!!.deleteUOM(UOMId)
+        }
+    }
+
+    fun saveStackTrace() {
+        registerUncaughtExceptionHandler()
+    }
+
+    private fun registerUncaughtExceptionHandler() {
+        defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()!!
+        Thread.setDefaultUncaughtExceptionHandler { thread, ex ->
+            saveLog(ex)
+            defaultUncaughtExceptionHandler.uncaughtException(thread, ex)
+        }
+    }
+
+    private fun saveLog(exception: Throwable) {
+        CoroutineScope(IO).launch {
+            productsRepository = ProductsRepository.getInstance()
+            try {
+                val stackTrace: String = Log.getStackTraceString(exception)
+                productsRepository!!.insertLogs(stackTrace)
+            } catch (_: Exception) {
+            }
         }
     }
 }

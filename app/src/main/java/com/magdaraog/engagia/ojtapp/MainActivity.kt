@@ -45,6 +45,8 @@ class MainActivity : AppCompatActivity() {
         mainBinding.toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"))
 
         productsViewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
+        productsViewModel.saveStackTrace()
+
         productsViewModel.init()
 
         productsViewModel.getProducts()?.observe(this) {

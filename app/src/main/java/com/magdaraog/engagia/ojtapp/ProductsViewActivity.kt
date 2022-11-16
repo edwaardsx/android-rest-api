@@ -1,168 +1,170 @@
 package com.magdaraog.engagia.ojtapp
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.magdaraog.engagia.ojtapp.databinding.ActivityMainBinding
 import com.magdaraog.engagia.ojtapp.databinding.ActivityProductsViewBinding
-import org.json.JSONObject
 
+@Suppress("DEPRECATED_IDENTITY_EQUALS")
 class ProductsViewActivity : AppCompatActivity() {
 
-    private lateinit var _ProductsViewBinding: ActivityProductsViewBinding
+    private lateinit var productsViewBinding: ActivityProductsViewBinding
     private lateinit var productsViewModel: ProductsViewModel
 
     var bundle: Bundle? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        _ProductsViewBinding = ActivityProductsViewBinding.inflate(layoutInflater)
-        setContentView(_ProductsViewBinding.root)
+        productsViewBinding = ActivityProductsViewBinding.inflate(layoutInflater)
+        setContentView(productsViewBinding.root)
 
         productsViewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
+        productsViewModel.saveStackTrace()
 
         bundle = intent.extras
 
         productsViewModel.initUOM(bundle!!.getString("ProdCodeTemp"))
 
-        productsViewModel.getUOM()?.observe(this, Observer {
-            if (it.size !== 0){
-                _ProductsViewBinding.btnEdit.isVisible = true
-                _ProductsViewBinding.btnDelete.isVisible = true
+        productsViewModel.getUOM()?.observe(this) {
+            if (it.size !== 0) {
+                productsViewBinding.btnEdit.isVisible = true
+                productsViewBinding.btnDelete.isVisible = true
 
-                val stk: TableLayout = _ProductsViewBinding.secondTable
+                val stk: TableLayout = productsViewBinding.secondTable
                 stk.removeAllViews()
-                val tbrow1: TableRow = TableRow(_ProductsViewBinding.root.context)
+                val tbrow1 = TableRow(productsViewBinding.root.context)
                 tbrow1.setBackgroundColor(Color.parseColor("#E1E1E1"))
-                val h1v: TextView = TextView(_ProductsViewBinding.root.context)
-                h1v.setText("ID")
+                val h1v = TextView(productsViewBinding.root.context)
+                h1v.text = "ID"
                 h1v.setPadding(25, 25, 25, 25)
                 h1v.setTextColor(Color.parseColor("#000000"))
-                h1v.setTypeface(Typeface.DEFAULT_BOLD)
+                h1v.typeface = Typeface.DEFAULT_BOLD
                 tbrow1.addView(h1v)
-                val lp: TableRow.LayoutParams = h1v.getLayoutParams() as TableRow.LayoutParams
+                val lp: TableRow.LayoutParams = h1v.layoutParams as TableRow.LayoutParams
                 lp.width = 100
-                h1v.setLayoutParams(lp)
-                val h2v: TextView = TextView(_ProductsViewBinding.root.context)
-                h2v.setText("PRODUCT CODE")
+                h1v.layoutParams = lp
+                val h2v = TextView(productsViewBinding.root.context)
+                h2v.text = "PRODUCT CODE"
                 h2v.setPadding(25, 25, 25, 25)
                 h2v.setTextColor(Color.parseColor("#000000"))
-                h2v.setTypeface(Typeface.DEFAULT_BOLD)
+                h2v.typeface = Typeface.DEFAULT_BOLD
                 tbrow1.addView(h2v)
-                val h3v: TextView = TextView(_ProductsViewBinding.root.context)
-                h3v.setText("UNIT OF MEASURE")
+                val h3v = TextView(productsViewBinding.root.context)
+                h3v.text = "UNIT OF MEASURE"
                 h3v.setPadding(25, 25, 25, 25)
                 h3v.setTextColor(Color.parseColor("#000000"))
-                h3v.setTypeface(Typeface.DEFAULT_BOLD)
+                h3v.typeface = Typeface.DEFAULT_BOLD
                 tbrow1.addView(h3v)
-                val h4v: TextView = TextView(_ProductsViewBinding.root.context)
-                h4v.setText("PRICE")
+                val h4v = TextView(productsViewBinding.root.context)
+                h4v.text = "PRICE"
                 h4v.setPadding(25, 25, 25, 25)
                 h4v.setTextColor(Color.parseColor("#000000"))
-                h4v.setTypeface(Typeface.DEFAULT_BOLD)
+                h4v.typeface = Typeface.DEFAULT_BOLD
                 tbrow1.addView(h4v)
 
                 stk.addView(tbrow1)
 
-                for (i in 0 until it.size) {
-                    val tbrow: TableRow = TableRow(_ProductsViewBinding.root.context)
-                    val t1v: TextView = TextView(_ProductsViewBinding.root.context)
-                    t1v.setText(it[i].UOMId.toString())
+                for (i in it.indices) {
+                    val tbrow = TableRow(productsViewBinding.root.context)
+                    val t1v = TextView(productsViewBinding.root.context)
+                    t1v.text = it[i].UOMId.toString()
                     t1v.setPadding(25, 25, 25, 25)
                     tbrow.addView(t1v)
-                    val t2v: TextView = TextView(_ProductsViewBinding.root.context)
-                    t2v.setText(it[i].UOMCode.toString())
+                    val t2v = TextView(productsViewBinding.root.context)
+                    t2v.text = it[i].UOMCode.toString()
                     t2v.setPadding(25, 25, 25, 25)
                     tbrow.addView(t2v)
-                    val t3v: TextView = TextView(_ProductsViewBinding.root.context)
-                    t3v.setText(it[i].UOM.toString())
+                    val t3v = TextView(productsViewBinding.root.context)
+                    t3v.text = it[i].UOM.toString()
                     t3v.setPadding(25, 25, 25, 25)
                     tbrow.addView(t3v)
-                    val t4v: TextView = TextView(_ProductsViewBinding.root.context)
-                    t4v.setText(it[i].UOMPrice.toString())
+                    val t4v = TextView(productsViewBinding.root.context)
+                    t4v.text = it[i].UOMPrice.toString()
                     t4v.setPadding(25, 25, 25, 25)
                     tbrow.addView(t4v)
                     stk.addView(tbrow)
                 }
-            }else{
-                _ProductsViewBinding.btnEdit.isVisible = false
-                _ProductsViewBinding.btnDelete.isVisible = false
+            } else {
+                productsViewBinding.btnEdit.isVisible = false
+                productsViewBinding.btnDelete.isVisible = false
             }
-        })
+        }
 
         constructProductsTable()
 
-        _ProductsViewBinding.btnProductsViewBack.setOnClickListener {
+        productsViewBinding.btnProductsViewBack.setOnClickListener {
             finish()
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
 
-        _ProductsViewBinding.btnAdd.setOnClickListener {
+        productsViewBinding.btnAdd.setOnClickListener {
             UOMFragment().show(supportFragmentManager, "BottomSheetTag")
             productsViewModel.tempProdCode.value = bundle!!.getString("ProdCodeTemp")
         }
 
-        _ProductsViewBinding.btnEdit.setOnClickListener {
+        productsViewBinding.btnEdit.setOnClickListener {
             EditUOMFragment().show(supportFragmentManager, "BottomSheetTag")
             productsViewModel.tempProdCode.value = bundle!!.getString("ProdCodeTemp")
         }
 
-        _ProductsViewBinding.btnDelete.setOnClickListener {
+        productsViewBinding.btnDelete.setOnClickListener {
             DeleteUOMFragment().show(supportFragmentManager, "BottomSheetTag")
             productsViewModel.tempProdCode.value = bundle!!.getString("ProdCodeTemp")
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun constructProductsTable(){
-        val stk: TableLayout = _ProductsViewBinding.firstTable
+        val stk: TableLayout = productsViewBinding.firstTable
         stk.removeAllViews()
-        val tbrow1: TableRow = TableRow(_ProductsViewBinding.root.context)
+        val tbrow1 = TableRow(productsViewBinding.root.context)
         tbrow1.setBackgroundColor(Color.parseColor("#E1E1E1"))
-        val h1v: TextView = TextView(_ProductsViewBinding.root.context)
-        h1v.setText("ID")
+        val h1v = TextView(productsViewBinding.root.context)
+        h1v.text = "ID"
         h1v.setPadding(25, 25, 25, 25)
         h1v.setTextColor(Color.parseColor("#FF000000"))
-        h1v.setTypeface(Typeface.DEFAULT_BOLD)
+        h1v.typeface = Typeface.DEFAULT_BOLD
         tbrow1.addView(h1v)
 
-        val lp: TableRow.LayoutParams = h1v.getLayoutParams() as TableRow.LayoutParams
+        val lp: TableRow.LayoutParams = h1v.layoutParams as TableRow.LayoutParams
         lp.width = 100
 
-        h1v.setLayoutParams(lp)
-        val h2v: TextView = TextView(_ProductsViewBinding.root.context)
-        h2v.setText("PRODUCT CODE")
+        h1v.layoutParams = lp
+        val h2v = TextView(productsViewBinding.root.context)
+        h2v.text = "PRODUCT CODE"
         h2v.setPadding(25, 25, 25, 25)
         h2v.setTextColor(Color.parseColor("#FF000000"))
-        h2v.setTypeface(Typeface.DEFAULT_BOLD)
+        h2v.typeface = Typeface.DEFAULT_BOLD
         tbrow1.addView(h2v)
-        val h3v: TextView = TextView(_ProductsViewBinding.root.context)
-        h3v.setText("PRODUCT NAME")
+        val h3v = TextView(productsViewBinding.root.context)
+        h3v.text = "PRODUCT NAME"
         h3v.setPadding(25, 25, 25, 25)
         h3v.setTextColor(Color.parseColor("#FF000000"))
-        h3v.setTypeface(Typeface.DEFAULT_BOLD)
+        h3v.typeface = Typeface.DEFAULT_BOLD
         tbrow1.addView(h3v)
 
         stk.addView(tbrow1)
 
-        val tbrow: TableRow = TableRow(_ProductsViewBinding.root.context)
-        val t1v: TextView = TextView(_ProductsViewBinding.root.context)
-        t1v.setText(bundle!!.getString("ProdIDTemp"))
+        val tbrow = TableRow(productsViewBinding.root.context)
+        val t1v = TextView(productsViewBinding.root.context)
+        t1v.text = bundle!!.getString("ProdIDTemp")
         t1v.setPadding(25, 25, 25, 25)
         tbrow.addView(t1v)
-        val t2v: TextView = TextView(_ProductsViewBinding.root.context)
-        t2v.setText(bundle!!.getString("ProdCodeTemp"))
+        val t2v = TextView(productsViewBinding.root.context)
+        t2v.text = bundle!!.getString("ProdCodeTemp")
         t2v.setPadding(25, 25, 25, 25)
         tbrow.addView(t2v)
-        val t3v: TextView = TextView(_ProductsViewBinding.root.context)
-        t3v.setText(bundle!!.getString("ProdNameTemp"))
+        val t3v = TextView(productsViewBinding.root.context)
+        t3v.text = bundle!!.getString("ProdNameTemp")
         t3v.setPadding(25, 25, 25, 25)
         tbrow.addView(t3v)
         stk.addView(tbrow)

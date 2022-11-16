@@ -19,7 +19,10 @@ class DeleteUOMActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         deleteUOMBinding = ActivityDeleteUomBinding.inflate(layoutInflater)
         setContentView(deleteUOMBinding.root)
+
         productsViewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
+        productsViewModel.saveStackTrace()
+
         productsViewModel.initUOMcategs()
         productsViewModel.getUOMcategories()?.observe(this) {
             val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
