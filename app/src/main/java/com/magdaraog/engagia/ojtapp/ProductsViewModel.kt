@@ -1,11 +1,12 @@
 package com.magdaraog.engagia.ojtapp
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class ProductsViewModel : ViewModel() {
 
@@ -17,8 +18,6 @@ class ProductsViewModel : ViewModel() {
     var tempProductID = MutableLiveData<String>()
     var tempProdCode = MutableLiveData<String>()
     var tempProdName = MutableLiveData<String>()
-
-    private lateinit var defaultUncaughtExceptionHandler: Thread.UncaughtExceptionHandler
 
     private var productsRepository: ProductsRepository? = null
 
@@ -42,7 +41,6 @@ class ProductsViewModel : ViewModel() {
         if (productsUOM != null) {
             return
         }
-
         productsRepository = ProductsRepository.getInstance()
         productsUOM = productsRepository!!.getUOM(prodCode)
     }
@@ -151,29 +149,6 @@ class ProductsViewModel : ViewModel() {
         productsRepository = ProductsRepository.getInstance()
         CoroutineScope(IO).launch {
             productsRepository!!.deleteUOM(UOMId)
-        }
-    }
-
-    fun saveStackTrace() {
-        registerUncaughtExceptionHandler()
-    }
-
-    private fun registerUncaughtExceptionHandler() {
-        defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()!!
-        Thread.setDefaultUncaughtExceptionHandler { thread, ex ->
-            saveLog(ex)
-            defaultUncaughtExceptionHandler.uncaughtException(thread, ex)
-        }
-    }
-
-    private fun saveLog(exception: Throwable) {
-        CoroutineScope(IO).launch {
-            productsRepository = ProductsRepository.getInstance()
-            try {
-                val stackTrace: String = Log.getStackTraceString(exception)
-                productsRepository!!.insertLogs(stackTrace)
-            } catch (_: Exception) {
-            }
         }
     }
 }

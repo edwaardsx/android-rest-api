@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.magdaraog.engagia.ojtapp.databinding.FragmentEditUomBinding
+import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class EditUOMFragment : BottomSheetDialogFragment()
 {
@@ -21,7 +22,6 @@ class EditUOMFragment : BottomSheetDialogFragment()
         val activity = requireActivity()
 
         productsViewModel = ViewModelProvider(activity)[ProductsViewModel::class.java]
-        productsViewModel.saveStackTrace()
 
         productsViewModel.initUOMcategs()
 

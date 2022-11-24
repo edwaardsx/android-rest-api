@@ -14,6 +14,41 @@
             android:layout_height="?attr/actionBarSize"
             android:background="#2D3142" />
 
+        <LinearLayout
+            android:id="@+id/npts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/ic_no_data_to_show"
+                android:alpha=".30"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ooops!"
+                android:gravity="center"
+                android:textColor="@android:color/darker_gray"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No products to show\ntry creating one."
+                android:textColor="@android:color/darker_gray"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@id/toolbar"
                 android:id="@+id/recycler_view"

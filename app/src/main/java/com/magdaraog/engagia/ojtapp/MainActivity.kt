@@ -3,9 +3,11 @@ package com.magdaraog.engagia.ojtapp
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
 import android.view.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +17,7 @@ import com.magdaraog.engagia.ojtapp.databinding.ActivityMainBinding
 import com.magdaraog.engagia.ojtapp.helper.MyButton
 import com.magdaraog.engagia.ojtapp.helper.MySwipeHelper
 import com.magdaraog.engagia.ojtapp.listener.MyButtonClickListener
+import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -33,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var productsViewModel: ProductsViewModel
     private lateinit var recyclerAdapter: ProductsAdapter
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +48,31 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = "{ ... } REST:API"
         mainBinding.toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"))
 
+
+        //For error tracking testing (DISABLE IF NOT NEEDED) you can directly check logs after Application start
+        try {
+            var a: List<String> = ArrayList()
+
+            var b = a[10]
+        }catch (e: Exception)
+        {
+            StacktraceUtil().saveStackTrace(applicationContext, e)
+        }
+        //For error tracking testing (DISABLE IF NOT NEEDED) you can directly check logs after Application start
+
         productsViewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
-        productsViewModel.saveStackTrace()
 
         productsViewModel.init()
 
         productsViewModel.getProducts()?.observe(this) {
+
+            if (it.size != 0)
+            {
+                mainBinding.npts.visibility = View.GONE
+            }else{
+                mainBinding.npts.visibility = View.VISIBLE
+            }
+
             linkLists(productsViewModel)
             recyclerAdapter.setItems(it)
             recyclerAdapter.notifyDataSetChanged()
@@ -77,6 +100,14 @@ class MainActivity : AppCompatActivity() {
                                     removeFromLists(pos)
                                     linkLists(productsViewModel)
                                     recyclerAdapter.notifyItemRemoved(pos)
+
+                                    if (recyclerAdapter.itemCount != 0)  {
+                                        mainBinding.npts.visibility = View.GONE
+                                    } else {
+                                        mainBinding.npts.visibility = View.VISIBLE
+                                    }
+
+
                                 }
                             }
                         }))
@@ -101,6 +132,11 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         productsViewModel.getProducts()?.observe(this) {
+            if (it.size != 0)  {
+                mainBinding.npts.visibility = View.GONE
+            } else {
+                mainBinding.npts.visibility = View.VISIBLE
+            }
             linkLists(productsViewModel)
             recyclerAdapter.setItems(it)
             recyclerAdapter.notifyDataSetChanged()
@@ -136,6 +172,14 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(applicationContext, ViewProductsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 applicationContext.startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            R.id.action_logs -> {
+                val intent = Intent(applicationContext, LogsActivity::class.java)
+
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                applicationContext.startActivity(intent)
+
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
         }

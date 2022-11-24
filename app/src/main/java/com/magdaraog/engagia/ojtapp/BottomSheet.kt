@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.magdaraog.engagia.ojtapp.databinding.FragmentBottomSheetBinding
+import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class BottomSheet : BottomSheetDialogFragment() {
 
@@ -20,7 +21,6 @@ class BottomSheet : BottomSheetDialogFragment() {
         val activity = requireActivity()
 
         productsViewModel = ViewModelProvider(activity)[ProductsViewModel::class.java]
-        productsViewModel.saveStackTrace()
 
         productsViewModel.tempProductID.observe(this){
             productID = it

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.magdaraog.engagia.ojtapp.databinding.FragmentDeleteUomBinding
+import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class DeleteUOMFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentDeleteUomBinding
@@ -20,7 +21,6 @@ class DeleteUOMFragment : BottomSheetDialogFragment() {
         val activity = requireActivity()
 
         productsViewModel = ViewModelProvider(activity)[ProductsViewModel::class.java]
-        productsViewModel.saveStackTrace()
 
         productsViewModel.tempProdCode.observe(this) {
             productsViewModel.initUOMIds(it)

@@ -18,7 +18,7 @@ import java.net.URL
 
 class ProductsRepository {
 
-    private var ipAddress: String = "192.168.100.2:8765"
+    private var ipAddress: String = "192.168.100.7:8765"
     private var tableListURL: String = "http://$ipAddress/productsTable/tablelist.json"
     private var addURL = "http://$ipAddress/productsTable/add.json"
     private var updateProductURL = "http://$ipAddress/productsTable/edit/"
@@ -30,7 +30,6 @@ class ProductsRepository {
     private var addUOMurl = "http://$ipAddress/productsTable/adduom.json"
     private var updateUOMurl = "http://$ipAddress/productsTable/edituom/"
     private var deleteUOMurl = "http://$ipAddress/productsTable/deleteuomrecord/"
-    private var insertLogsURL = "http://$ipAddress/productsTable/insertLogs.json"
 
     private val dataSet = java.util.ArrayList<Products>()
     private val uomDataSet = java.util.ArrayList<ProductsUOM>()
@@ -76,16 +75,6 @@ class ProductsRepository {
     fun createProducts(prodCode: String?, prodName: String?) {
         val job = CoroutineScope(IO).launch {
             httpPost(addURL, prodCode, prodName)
-        }
-        runBlocking {
-            job.join()
-            getProducts()
-        }
-    }
-
-    fun insertLogs(log: String?) {
-        val job = CoroutineScope(IO).launch {
-            httpPostForLogs(insertLogsURL,log)
         }
         runBlocking {
             job.join()
@@ -241,30 +230,6 @@ class ProductsRepository {
         val builder: Uri.Builder = Uri.Builder()
             .appendQueryParameter("product_code", prodCode)
             .appendQueryParameter("product_name", prodName)
-        val query: String? = builder.build().encodedQuery
-        urlConnection.requestMethod = "POST"
-        urlConnection.doInput = true
-        urlConnection.doOutput = true
-        urlConnection.connect()
-        val wr = DataOutputStream(urlConnection.outputStream)
-        wr.writeBytes(query)
-        wr.flush()
-        wr.close()
-        val isNew: InputStream = urlConnection.inputStream
-        BufferedReader(InputStreamReader(isNew))
-        result = convertInputStreamToString(isNew)
-        return result
-    }
-
-    private fun httpPostForLogs(myURL: String?, log: String?): String {
-        val result:String
-        TrafficStats.setThreadStatsTag(Thread.currentThread().id.toInt())
-        val url = URL(myURL)
-        val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
-        urlConnection.readTimeout = 30000
-        urlConnection.connectTimeout = 30000
-        val builder: Uri.Builder = Uri.Builder()
-            .appendQueryParameter("log", log)
         val query: String? = builder.build().encodedQuery
         urlConnection.requestMethod = "POST"
         urlConnection.doInput = true

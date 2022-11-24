@@ -33,6 +33,12 @@
                 android:icon="@drawable/ic_delete_gray"
                 android:orderInCategory="100"
                 app:showAsAction="never" />
+            <item
+                android:id="@+id/action_logs"
+                android:title="Logs"
+                android:icon="@drawable/ic_logs"
+                android:orderInCategory="100"
+                app:showAsAction="never" />
         </menu>
 
     </item>

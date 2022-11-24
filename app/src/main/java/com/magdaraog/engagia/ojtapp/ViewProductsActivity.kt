@@ -2,7 +2,9 @@ package com.magdaraog.engagia.ojtapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.magdaraog.engagia.ojtapp.databinding.ActivityListOfProductsBinding
+import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class ViewProductsActivity : AppCompatActivity() {
 
@@ -12,6 +14,7 @@ class ViewProductsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewProductsBinding = ActivityListOfProductsBinding.inflate(layoutInflater)
         setContentView(viewProductsBinding.root)
+
 
         viewProductsBinding.btnUOMBack.setOnClickListener {
             finish()

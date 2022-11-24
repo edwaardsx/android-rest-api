@@ -3,11 +3,14 @@ package com.magdaraog.engagia.ojtapp
 //noinspection SuspiciousImport
 import android.R
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.magdaraog.engagia.ojtapp.databinding.ActivityDeleteUomBinding
+import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class DeleteUOMActivity : AppCompatActivity() {
 
@@ -15,13 +18,13 @@ class DeleteUOMActivity : AppCompatActivity() {
 
     private lateinit var productsViewModel: ProductsViewModel
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         deleteUOMBinding = ActivityDeleteUomBinding.inflate(layoutInflater)
         setContentView(deleteUOMBinding.root)
 
         productsViewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
-        productsViewModel.saveStackTrace()
 
         productsViewModel.initUOMcategs()
         productsViewModel.getUOMcategories()?.observe(this) {
@@ -37,7 +40,6 @@ class DeleteUOMActivity : AppCompatActivity() {
                 deleteUOMBinding.atvDeleteUom.setAdapter(adapter)
                 deleteUOMBinding.atvDeleteUom.inputType = 0
             } else {
-                deleteUOMBinding.atvDeleteUom.hint = "No UOM to delete"
                 deleteUOMBinding.atvDeleteUom.isEnabled = false
                 deleteUOMBinding.btnDeleteUom.isEnabled = false
             }
@@ -50,6 +52,7 @@ class DeleteUOMActivity : AppCompatActivity() {
 
         deleteUOMBinding.btnDeleteUom.setOnClickListener {
             productsViewModel.deleteCategory(deleteUOMBinding.atvDeleteUom.text.toString())
+
         }
     }
 

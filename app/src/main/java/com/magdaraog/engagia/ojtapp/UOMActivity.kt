@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.magdaraog.engagia.ojtapp.databinding.ActivityUomBinding
+import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class UOMActivity : AppCompatActivity() {
 
@@ -20,7 +21,6 @@ class UOMActivity : AppCompatActivity() {
         setContentView(uomBinding.root)
 
         productViewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
-        productViewModel.saveStackTrace()
 
         uomBinding.etUom.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
