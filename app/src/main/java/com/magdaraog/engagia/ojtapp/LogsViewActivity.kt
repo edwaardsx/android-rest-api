@@ -23,6 +23,5 @@ class LogsViewActivity : AppCompatActivity() {
         logsViewBinding.logsView.text = bundle!!.getString("LogsTemp")
         logsViewBinding.logsViewDate.text = bundle!!.getString("LogsDateTemp")
         logsViewBinding.logsViewTime.text = bundle!!.getString("LogsTimeTemp")
-
     }
 }

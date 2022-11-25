@@ -10,7 +10,6 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.magdaraog.engagia.ojtapp.databinding.ActivityDeleteUomBinding
-import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class DeleteUOMActivity : AppCompatActivity() {
 

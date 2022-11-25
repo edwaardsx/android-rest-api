@@ -36,17 +36,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
-                            android:hint="Productname"
+                            android:hint="@string/product_name"
                             android:text="@{ProductsItem.prodName}"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Productcode"
+                            android:hint="@string/product_code"
                             android:text="@{ProductsItem.prodCode}"
                             android:textStyle="italic"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" /> />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 </LinearLayout>
             </LinearLayout>

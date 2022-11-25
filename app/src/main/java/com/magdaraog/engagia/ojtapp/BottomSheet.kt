@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.magdaraog.engagia.ojtapp.databinding.FragmentBottomSheetBinding
-import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class BottomSheet : BottomSheetDialogFragment() {
 
@@ -25,15 +24,12 @@ class BottomSheet : BottomSheetDialogFragment() {
         productsViewModel.tempProductID.observe(this){
             productID = it
         }
-
         productsViewModel.tempProdCode.observe(this){
             binding.etProductCodeUpdate.setText(it)
         }
-
         productsViewModel.tempProdName.observe(this){
             binding.etProductNameUpdate.setText(it)
         }
-
         binding.btnUpdateProduct.setOnClickListener {
             productsViewModel.editProductValue(productID, binding.etProductCodeUpdate.text.toString(), binding.etProductNameUpdate.text.toString())
         }

@@ -51,11 +51,10 @@ class MainActivity : AppCompatActivity() {
 
         //For error tracking testing (DISABLE IF NOT NEEDED) you can directly check logs after Application start
         try {
-            var a: List<String> = ArrayList()
+            val a: List<String> = ArrayList()
 
-            var b = a[10]
-        }catch (e: Exception)
-        {
+            a[10]
+        } catch (e: Exception) {
             StacktraceUtil().saveStackTrace(applicationContext, e)
         }
         //For error tracking testing (DISABLE IF NOT NEEDED) you can directly check logs after Application start
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         productsViewModel.getProducts()?.observe(this) {
 
-            if (it.size != 0)
+            if (it.isNotEmpty())
             {
                 mainBinding.npts.visibility = View.GONE
             }else{
@@ -132,7 +131,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         productsViewModel.getProducts()?.observe(this) {
-            if (it.size != 0)  {
+            if (it.isNotEmpty())  {
                 mainBinding.npts.visibility = View.GONE
             } else {
                 mainBinding.npts.visibility = View.VISIBLE

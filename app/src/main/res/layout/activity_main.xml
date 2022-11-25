@@ -20,19 +20,19 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-
             android:orientation="vertical" >
 
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:background="@drawable/ic_no_data_to_show"
-                android:alpha=".30"/>
+                android:alpha=".30"
+                android:contentDescription="@string/npts_icon"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ooops!"
+                android:text="@string/npts_title"
                 android:gravity="center"
                 android:textColor="@android:color/darker_gray"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
@@ -40,14 +40,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No products to show\ntry creating one."
+                android:layout_marginTop="5dp"
+                android:text="@string/npts_body"
                 android:textColor="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:gravity="center" />
 
         </LinearLayout>
-
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@id/toolbar"

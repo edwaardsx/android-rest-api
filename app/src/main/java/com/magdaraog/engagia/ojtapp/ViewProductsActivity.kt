@@ -15,7 +15,6 @@ class ViewProductsActivity : AppCompatActivity() {
         viewProductsBinding = ActivityListOfProductsBinding.inflate(layoutInflater)
         setContentView(viewProductsBinding.root)
 
-
         viewProductsBinding.btnUOMBack.setOnClickListener {
             finish()
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)

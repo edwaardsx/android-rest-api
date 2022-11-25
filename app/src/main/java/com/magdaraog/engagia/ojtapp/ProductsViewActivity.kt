@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.magdaraog.engagia.ojtapp.databinding.ActivityProductsViewBinding
-import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class ProductsViewActivity : AppCompatActivity() {

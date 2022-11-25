@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.magdaraog.engagia.ojtapp.databinding.FragmentDeleteUomBinding
-import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class DeleteUOMFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentDeleteUomBinding

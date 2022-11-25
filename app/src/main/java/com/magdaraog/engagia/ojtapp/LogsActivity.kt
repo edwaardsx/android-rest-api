@@ -2,20 +2,15 @@ package com.magdaraog.engagia.ojtapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v4.os.IResultReceiver.Default
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.magdaraog.engagia.ojtapp.databinding.ActivityLogsBinding
-import com.release.gfg1.DBHelper
+import com.magdaraog.engagia.ojtapp.sqlite.DBHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class LogsActivity : AppCompatActivity() {
 
@@ -51,19 +46,12 @@ class LogsActivity : AppCompatActivity() {
     }
 
     @SuppressLint("Range", "NotifyDataSetChanged")
-    private fun initData()
-    {
-
-        var job1 = CoroutineScope(IO).launch {
-
+    private fun initData() {
+        val job1 = CoroutineScope(IO).launch {
             val db = DBHelper(logsBinding.root.context, null)
-
             val cursor = db.getLog()
-
-
-            if (cursor?.count != 0){
+            if (cursor?.count != 0) {
                 cursor?.moveToFirst()
-
                 data.add(Logs(cursor?.getString(cursor.getColumnIndex(DBHelper.ID_COL))?.toInt(),
                     cursor?.getString(cursor.getColumnIndex(DBHelper.LOG_COL)),
                     cursor?.getString(cursor.getColumnIndex(DBHelper.DATE_COL)),
@@ -78,21 +66,14 @@ class LogsActivity : AppCompatActivity() {
                         cursor.getString(cursor.getColumnIndex(DBHelper.TIME_COL))
                     ))
                 }
-
                 cursor.close()
             }
         }
-
         runBlocking {
             job1.join()
-
             recyclerAdapter.setItems(data)
             recyclerAdapter.notifyDataSetChanged()
         }
-
-
-
-
     }
 
     @Deprecated("Deprecated in Java")

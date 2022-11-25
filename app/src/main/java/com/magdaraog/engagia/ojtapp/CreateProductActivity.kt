@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.magdaraog.engagia.ojtapp.databinding.ActivityCreateProductBinding
-import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class CreateProductActivity : AppCompatActivity() {
 

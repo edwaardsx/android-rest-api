@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -42,7 +43,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Logs #"
+                            android:text="@string/logs_count"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                         <TextView
@@ -72,19 +73,21 @@
                             android:id="@+id/logs_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="Date"
+                            android:hint="@string/date"
                             android:text="@{LogsItem.logsDate}"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            tools:ignore="TextContrastCheck" />
 
                         <TextView
                             android:id="@+id/logs_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:hint="Time"
+                            android:hint="@string/time"
                             android:text="@{LogsItem.logsTime}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textStyle="italic"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                            tools:ignore="TextContrastCheck" />
 
                     </LinearLayout>
 

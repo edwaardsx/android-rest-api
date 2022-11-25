@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.magdaraog.engagia.ojtapp.databinding.ActivityRowLayoutBinding
 import com.magdaraog.engagia.ojtapp.databinding.ActivityRowLogsLayoutBinding
 
 class LogsAdapter (var context: Context, private var data: List<Logs>) : ListAdapter<Logs, LogsAdapter.MyViewHolder>(LogsDiffUtil()) {
@@ -21,26 +20,19 @@ class LogsAdapter (var context: Context, private var data: List<Logs>) : ListAda
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogsAdapter.MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
         val productsItemBinding = ActivityRowLogsLayoutBinding.inflate(inflater, parent, false)
         return MyViewHolder(productsItemBinding)
-
     }
 
     override fun onBindViewHolder(holder: LogsAdapter.MyViewHolder, position: Int) {
         holder.bind(data[position])
-
         holder.itemView.setOnClickListener {
-
             val intent = Intent(context, LogsViewActivity::class.java)
-
             intent.putExtra("LogsTemp", data[position].log)
             intent.putExtra("LogsDateTemp", data[position].logsDate)
             intent.putExtra("LogsTimeTemp", data[position].logsTime)
-
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
-
         }
         val incrementedPosition = position + 1
         holder.binding.index = incrementedPosition.toString()
@@ -50,7 +42,6 @@ class LogsAdapter (var context: Context, private var data: List<Logs>) : ListAda
         override fun areItemsTheSame(oldItem: Logs, newItem: Logs): Boolean {
             return oldItem.logsID == newItem.logsID
         }
-
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: Logs, newItem: Logs): Boolean {
             return oldItem == newItem
@@ -64,8 +55,5 @@ class LogsAdapter (var context: Context, private var data: List<Logs>) : ListAda
     @SuppressLint("NotifyDataSetChanged")
     fun setItems(logs: List<Logs>) {
         this.data = logs
-
-        println("data received: ${this.data}")
-
     }
 }

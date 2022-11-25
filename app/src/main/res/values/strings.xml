@@ -36,4 +36,11 @@
     <string name="edit_uom">Edit UOM</string>
     <string name="delete">Delete</string>
     <string name="deletes_uom">Delete UOM</string>
+    <string name="npts_body">No products to show\ntry creating one.</string>
+    <string name="npts_title">Ooops!</string>
+    <string name="npts_icon">NO_PRODUCTS_TO_SHOW</string>
+    <string name="logs">Logs</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="logs_count">Logs #</string>
 </resources>

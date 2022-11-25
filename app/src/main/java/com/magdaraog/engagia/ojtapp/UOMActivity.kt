@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.magdaraog.engagia.ojtapp.databinding.ActivityUomBinding
-import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class UOMActivity : AppCompatActivity() {
 

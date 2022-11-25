@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.magdaraog.engagia.ojtapp.databinding.FragmentAddUomBinding
-import com.magdaraog.engagia.ojtapp.util.StacktraceUtil
 
 class UOMFragment : BottomSheetDialogFragment()
 {
@@ -35,11 +34,11 @@ class UOMFragment : BottomSheetDialogFragment()
                 R.layout.simple_dropdown_item_1line,
                 it
             )
-            if (it.isNotEmpty()){
+            if (it.isNotEmpty()) {
                 binding.etUnitsOfMeasureUom.isEnabled = true
                 binding.etUnitsOfMeasureUom.setAdapter(adapter)
                 binding.etUnitsOfMeasureUom.inputType = 0
-            }else{
+            } else {
                 binding.etUnitsOfMeasureUom.hint = "No UOM to be selected"
                 binding.etUnitsOfMeasureUom.isEnabled = false
                 binding.etUnitsOfMeasureUom.isEnabled = false
@@ -52,7 +51,7 @@ class UOMFragment : BottomSheetDialogFragment()
         }
     }
 
-    private fun clearFields(){
+    private fun clearFields() {
         binding.etProductCodeUom.setText("")
         binding.etUnitsOfMeasureUom.setText("")
         binding.etPrice.setText("")
