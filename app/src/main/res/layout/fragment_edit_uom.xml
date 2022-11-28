@@ -101,9 +101,10 @@
                     android:id="@+id/et_edit_uom_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textCursorDrawable="@drawable/custom_cursor"
                     android:hint="@string/price"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

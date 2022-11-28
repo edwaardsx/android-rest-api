@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -30,23 +30,26 @@
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:hint="@string/product_name"
-                            android:text="@{ProductsItem.prodName}"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:hint="@string/product_name"
+                        android:text="@{ProductsItem.prodName}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textStyle="bold"
+                        tools:ignore="TextContrastCheck" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/product_code"
-                            android:text="@{ProductsItem.prodCode}"
-                            android:textStyle="italic"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/product_code"
+                        android:text="@{ProductsItem.prodCode}"
+                        android:textAllCaps="true"
+                        tools:ignore="TextContrastCheck" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -58,22 +61,24 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:background="@drawable/ic_chevron_right"
-                    android:contentDescription="@string/chevron_right" />
+                    android:contentDescription="@string/chevron_right"
+                    tools:ignore="ImageContrastCheck" />
 
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
         <ImageView
-            android:layout_below="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
+            android:layout_below="@+id/card_view"
             android:background="@android:color/darker_gray"
-            android:contentDescription="@string/divider" />
+            android:contentDescription="@string/divider"
+            tools:ignore="ImageContrastCheck" />
 
     </RelativeLayout>
 </layout>

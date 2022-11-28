@@ -10,12 +10,13 @@
         tools:context=".UOMFragment">
 
         <ImageView
-            android:layout_marginTop="5dp"
             android:layout_width="40dp"
             android:layout_height="4dp"
             android:layout_gravity="center|top"
+            android:layout_marginTop="5dp"
             android:background="@android:color/darker_gray"
-            android:contentDescription="@string/swipe_up"/>
+            android:contentDescription="@string/swipe_up"
+            tools:ignore="RedundantDescriptionCheck" />
 
         <TextView
             android:layout_width="match_parent"
@@ -45,9 +46,10 @@
                     android:id="@+id/et_product_code_uom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/product_code"
                     android:focusable="false"
-                    android:inputType="none" />
+                    android:hint="@string/product_code"
+                    android:inputType="none"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -79,11 +81,12 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_price"
-                    android:inputType="number"
-                    android:textCursorDrawable="@drawable/custom_cursor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/price" />
+                    android:hint="@string/price"
+                    android:inputType="number"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

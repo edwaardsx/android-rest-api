@@ -37,6 +37,14 @@ class ProductsViewModel : ViewModel() {
         uomCategories = productsRepository!!.getUOMcategs()
     }
 
+    fun initAllUOM() {
+        if (productsUOM != null) {
+            return
+        }
+        productsRepository = ProductsRepository.getInstance()
+        productsUOM = productsRepository!!.getAllUOM()
+    }
+
     fun initUOM(prodCode: String?) {
         if (productsUOM != null) {
             return

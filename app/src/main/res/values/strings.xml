@@ -43,4 +43,8 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="logs_count">Logs #</string>
+    <string name="list_view">List View</string>
+    <string name="products_view">Products View</string>
+    <string name="product_view_edit">Edit</string>
+    <string name="product_view_delete">Delete</string>
 </resources>

@@ -48,8 +48,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = "{ ... } REST:API"
         mainBinding.toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"))
 
-
-        //For error tracking testing (DISABLE IF NOT NEEDED) you can directly check logs after Application start
         try {
             val a: List<String> = ArrayList()
 
@@ -57,7 +55,6 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             StacktraceUtil().saveStackTrace(applicationContext, e)
         }
-        //For error tracking testing (DISABLE IF NOT NEEDED) you can directly check logs after Application start
 
         productsViewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
 
@@ -105,8 +102,6 @@ class MainActivity : AppCompatActivity() {
                                     } else {
                                         mainBinding.npts.visibility = View.VISIBLE
                                     }
-
-
                                 }
                             }
                         }))
@@ -167,7 +162,7 @@ class MainActivity : AppCompatActivity() {
                 applicationContext.startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
-            R.id.action_view_list_of_producsts -> {
+            R.id.action_view_list_of_products -> {
                 val intent = Intent(applicationContext, ViewProductsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 applicationContext.startActivity(intent)

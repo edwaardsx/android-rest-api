@@ -25,26 +25,29 @@
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/ic_no_data_to_show"
                 android:alpha=".30"
-                android:contentDescription="@string/npts_icon"/>
+                android:background="@drawable/ic_no_data_to_show"
+                android:contentDescription="@string/npts_icon"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/npts_title"
                 android:gravity="center"
+                android:text="@string/npts_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                tools:ignore="TextContrastCheck" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:gravity="center"
                 android:text="@string/npts_body"
-                android:textColor="@android:color/darker_gray"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:gravity="center" />
+                android:textColor="@android:color/darker_gray"
+                tools:ignore="TextContrastCheck" />
 
         </LinearLayout>
 

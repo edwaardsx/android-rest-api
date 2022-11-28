@@ -1,8 +1,7 @@
 package com.magdaraog.engagia.ojtapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.magdaraog.engagia.ojtapp.databinding.ActivityLogsBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.magdaraog.engagia.ojtapp.databinding.ActivityLogsViewBinding
 
 class LogsViewActivity : AppCompatActivity() {

@@ -57,9 +57,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="220dp"
+                android:background="@drawable/btn_custom_delete"
                 android:text="@string/delete"
                 android:textColor="@color/white"
-                android:background="@drawable/btn_custom_delete" />
+                tools:ignore="TextContrastCheck" />
 
         </LinearLayout>
 

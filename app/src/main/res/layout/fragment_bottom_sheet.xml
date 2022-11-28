@@ -46,7 +46,8 @@
                     android:id="@+id/et_product_code_update"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="@string/product_code" />
+                    android:hint="@string/product_code"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -60,7 +61,8 @@
                     android:id="@+id/et_product_name_update"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="@string/product_name" />
+                    android:hint="@string/product_name"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

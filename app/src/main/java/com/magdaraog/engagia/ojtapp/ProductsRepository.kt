@@ -16,10 +16,12 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
+@Suppress("KotlinConstantConditions")
 class ProductsRepository {
 
     private var ipAddress: String = "192.168.100.14:8765"
     private var tableListURL: String = "http://$ipAddress/productsTable/tablelist.json"
+
     private var addURL = "http://$ipAddress/productsTable/add.json"
     private var updateProductURL = "http://$ipAddress/productsTable/edit/"
     private var deleteProductURL = "http://$ipAddress/productsTable/deleterecord/"
@@ -30,6 +32,7 @@ class ProductsRepository {
     private var addUOMurl = "http://$ipAddress/productsTable/adduom.json"
     private var updateUOMurl = "http://$ipAddress/productsTable/edituom/"
     private var deleteUOMurl = "http://$ipAddress/productsTable/deleteuomrecord/"
+    private var listAllUOMurl: String = "http://$ipAddress/productsTable/listalluom.json"
 
     private val dataSet = java.util.ArrayList<Products>()
     private val uomDataSet = java.util.ArrayList<ProductsUOM>()
@@ -48,6 +51,13 @@ class ProductsRepository {
         fetchProducts()
         val data: MutableLiveData<List<Products>> = MutableLiveData()
         data.postValue(dataSet)
+        return data
+    }
+
+    fun getAllUOM(): MutableLiveData<List<ProductsUOM>> {
+        fetchAllUOM()
+        val data: MutableLiveData<List<ProductsUOM>> = MutableLiveData()
+        data.postValue(uomDataSet)
         return data
     }
 
@@ -159,6 +169,25 @@ class ProductsRepository {
         }
     }
 
+    private fun fetchAllUOM() {
+        val job = CoroutineScope(IO).launch {
+            val output = httpGet(listAllUOMurl)
+            val obj = JSONObject(output)
+            val userArray: JSONArray = obj.getJSONArray("products")
+            uomDataSet.clear()
+            for (i in 0 until userArray.length()) {
+                val productsDetail: JSONObject = userArray.getJSONObject(i)
+                uomDataSet.add(
+                    ProductsUOM(productsDetail.getString("id").toInt(), productsDetail.getString("product_code"),
+                        productsDetail.getString("unit_of_measure"), productsDetail.getString("price"))
+                )
+            }
+        }
+        runBlocking {
+            job.join()
+        }
+    }
+
     private fun fetchUOMcategs() {
         val job = CoroutineScope(IO).launch {
             val output = httpGet(categListURL)
@@ -214,10 +243,11 @@ class ProductsRepository {
         val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
         conn.connect()
         inputStream = conn.inputStream
-        return if (inputStream != null)
+        return if (inputStream != null) {
             convertInputStreamToString(inputStream)
-        else
+        } else {
             "Did not work!"
+        }
     }
 
     private fun httpPost(myURL: String?, prodCode: String?, prodName: String?): String {

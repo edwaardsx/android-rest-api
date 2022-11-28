@@ -46,17 +46,19 @@ class CreateProductActivity : AppCompatActivity() {
             }
         })
 
-        createBinding.btnCreateBack.setOnClickListener {
-            finish()
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        }
-
         createBinding.btnCreateProduct.setOnClickListener{
             productViewModel.createNewValue(createBinding.etCreateProductCode.text.toString(),createBinding.etCreateProductName.text.toString())
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(createBinding.root.windowToken, 0)
-            Snackbar.make(createBinding.root, "Product Created", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(createBinding.root, "Product Created", Snackbar.LENGTH_LONG).setAction("View"){
+                println("View Products Clicked")
+            } .show()
             clearFields()
+        }
+
+        createBinding.btnCreateBack.setOnClickListener {
+            finish()
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
     }
 
