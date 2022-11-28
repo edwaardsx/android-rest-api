@@ -19,14 +19,12 @@ class LogsActivity : AppCompatActivity() {
 
     private var data = ArrayList<Logs>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         logsBinding = ActivityLogsBinding.inflate(layoutInflater)
         setContentView(logsBinding.root)
 
         initRecyclerView()
-
         initData()
 
         logsBinding.btnLogsBack.setOnClickListener{

@@ -1,7 +1,6 @@
 package com.magdaraog.engagia.ojtapp.helper
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -13,25 +12,16 @@ class MyButton (private val context: Context,
                 private val textSize: Int,
                 private val imageResId: Int,
                 private val color: Int,
-                private val listener: MyButtonClickListener
-) {
+                private val listener: MyButtonClickListener) {
     private var pos:Int = 0
     private var clickRegion: RectF?=null
-    private var resources: Resources
 
-    init {
-        resources = context.resources
-    }
-
-    fun onClick(x:Float, y:Float):Boolean
-    {
-        if (clickRegion != null && clickRegion!!.contains(x,y))
-        {
+    fun onClick(x:Float, y:Float):Boolean {
+        if (clickRegion != null && clickRegion!!.contains(x,y)) {
             listener.onClick(pos)
             return true
         }
         return false
-
     }
 
     fun onDraw(c: Canvas, rectF: RectF, pos:Int) {
@@ -39,7 +29,6 @@ class MyButton (private val context: Context,
         p.color = color
         c.drawRect(rectF, p)
 
-        //Text
         p.color = Color.WHITE
         p.textSize = textSize.toFloat()
 
@@ -48,8 +37,8 @@ class MyButton (private val context: Context,
         val cWidth = rectF.width()
         p.textAlign = Paint.Align.LEFT
         p.getTextBounds(text, 0, text.length, r)
-        var x = 0f
-        var y = 0f
+        val x: Float
+        val y: Float
 
         if (imageResId == 0) {
             x = cWidth / 2f - r.width() / 2f - r.left.toFloat()
@@ -60,10 +49,8 @@ class MyButton (private val context: Context,
             val bitmap = drawableToBitmap(d)
             c.drawBitmap(bitmap, (rectF.left + rectF.right) / 2, (rectF.top + rectF.bottom) / 2, p)
         }
-
         clickRegion = rectF
         this.pos = pos
-
     }
 
     private fun drawableToBitmap(d: Drawable?): Bitmap {
@@ -74,5 +61,4 @@ class MyButton (private val context: Context,
         d.draw(canvas)
         return bitmap
     }
-
 }
