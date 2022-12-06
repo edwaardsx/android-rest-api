@@ -1,7 +1,7 @@
-name: Android Test CI
+name: Android CI
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -10,20 +10,23 @@ jobs:
     runs-on: windows-latest
     
     steps:
-      - name: Checkout
-      - uses: actions/checkout@v2
-      
+      - uses: actions/checkout@v1
+
       - name: Setup Kotlin
-      - uses: actions/setup-kotlin@0.2.0
-        
-      - name: Build with Gradle
-      - run: ./gradlew build
+        uses: fwilhe2/setup-kotlin@0.2.0
+        with:
+          kotlin-version: 1.7.20
 
       - name: Unit Test
-      - run: bash ./gradlew ValidatorTest
-      
-      - name: npm Install
-      - run: npm ci
+        run: ./gradlew ValidatorTest
+        
+      - name: Build with Gradle
+        run: ./gradlew build
+        
+      - name: npm install
+        run: npm ci
       
       - name: test
-      - run: npm test
+        run: npm test
+        
+        
