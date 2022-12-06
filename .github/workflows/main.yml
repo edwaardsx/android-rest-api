@@ -6,13 +6,7 @@ on:
       - main
 
 jobs:
-
-  Run Script Test:
-  
-    env:
-    BUILD_CONFIG: 'Release'
-    SOLUTION: ''
-    
+  Test:
     runs-on: windows-latest
     
     steps:
@@ -22,8 +16,6 @@ jobs:
       
       - name: Setup Kotlin
       - uses: actions/setup-kotlin@0.2.0
-      with:
-        kotlin-version: 1.7.20
         
       - name: Build with Gradle
       - run: ./gradlew build
@@ -36,6 +28,4 @@ jobs:
       
       - name: test
       - run: npm test
-        
       
-        
