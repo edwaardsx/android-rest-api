@@ -22,5 +22,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Unit Test
-        run: ./gradlew ValidatorTest
+        run: ./gradlew testDebugUnitTest
         
