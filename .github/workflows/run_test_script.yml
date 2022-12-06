@@ -28,5 +28,5 @@ jobs:
           distribution: 'temurin'
 
       - name: Unit Test
-        run: ./gradlew ValidatorTest
+        run: ./gradlew test
         
