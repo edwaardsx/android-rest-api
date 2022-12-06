@@ -9,13 +9,18 @@ jobs:
   test:
     runs-on: windows-latest
     
+    strategy:
+      matrix:
+        node-version: [16.x]
+    
+    
     steps:
       - uses: actions/checkout@v1
 
-      - name: Setup Kotlin
-        uses: fwilhe2/setup-kotlin@0.2.0
+      - name: User Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          kotlin-version: 1.7.20
+          node-version: ${{ matrix.node-version }}
 
       - name: Unit Test
         run: ./gradlew ValidatorTest
