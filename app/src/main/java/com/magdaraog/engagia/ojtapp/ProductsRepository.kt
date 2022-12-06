@@ -19,7 +19,7 @@ import java.net.URL
 @Suppress("KotlinConstantConditions")
 class ProductsRepository {
 
-    private var ipAddress: String = "192.168.100.14:8765"
+    private var ipAddress: String = "192.168.100.7:8765"
     private var tableListURL: String = "http://$ipAddress/productsTable/tablelist.json"
 
     private var addURL = "http://$ipAddress/productsTable/add.json"

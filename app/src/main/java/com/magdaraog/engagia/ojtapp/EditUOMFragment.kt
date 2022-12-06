@@ -11,8 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.magdaraog.engagia.ojtapp.databinding.FragmentEditUomBinding
 
-class EditUOMFragment : BottomSheetDialogFragment()
-{
+class EditUOMFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentEditUomBinding
     private lateinit var productsViewModel: ProductsViewModel
 
@@ -64,7 +63,8 @@ class EditUOMFragment : BottomSheetDialogFragment()
         }
 
         binding.btnAddUom.setOnClickListener {
-            productsViewModel.editUOMValue(binding.etEditProductIdUom.text.toString() , binding.etEditProductCodeUom.text.toString(), binding.etEditUom.text.toString(), binding.etEditUomPrice.text.toString())
+            productsViewModel.editUOMValue(binding.etEditProductIdUom.text.toString() , binding.etEditProductCodeUom.text.toString(),
+                binding.etEditUom.text.toString(), binding.etEditUomPrice.text.toString())
             clearFields()
         }
     }
