@@ -20,13 +20,3 @@ jobs:
       - name: Unit Test
         run: ./gradlew ValidatorTest
         
-      - name: Build with Gradle
-        run: ./gradlew build
-        
-      - name: npm install
-        run: npm ci
-      
-      - name: test
-        run: npm test
-        
-        
