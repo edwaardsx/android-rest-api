@@ -50,7 +50,7 @@ class ValidatorTest {
 
     @Test
     fun functionTester() {
-        enumValues<FunctionTest>().forEach { FUNCTION_TYPE ->
+        enumValues<FunctionTest>().forEach {FUNCTION_TYPE ->
             var i = 0
 
             while (i <= 1000){
@@ -63,7 +63,7 @@ class ValidatorTest {
                     break
                 }
                 i++
-            }
+
         }
     }
 }
