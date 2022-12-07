@@ -1,25 +1,13 @@
 name: Android CI
-
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   test:
-    runs-on: windows-latest
-    
-    strategy:
-      matrix:
-        node-version: [16.x]
-
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-
-      - name: User Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v3
 
       - name: Setup Java JDK
         uses: actions/setup-java@v3.8.0
@@ -27,6 +15,10 @@ jobs:
           java-version: 11
           distribution: 'temurin'
 
+      # Execute unit tests
       - name: Unit Test
-        run: ./gradlew test
-        
+        run: bash ./gradlew testDebugUnitTest --stacktrace
+
+      - name: Android Test Report
+        uses: asadmansr/android-test-report-action@v1.2.0
+        if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
