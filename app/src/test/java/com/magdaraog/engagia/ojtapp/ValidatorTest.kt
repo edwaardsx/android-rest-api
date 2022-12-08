@@ -28,7 +28,7 @@ class ValidatorTest {
         assertThat(result).isEqualTo(false)
     }
 
-    enum class FunctionTest{
+    enum class FunctionTest {
         Function1,
         Function2,
         Function3,
@@ -36,12 +36,12 @@ class ValidatorTest {
         Function5
     }
 
-    private fun functionChecker(sectionLink: Int): FunctionTest?{
+    private fun functionChecker(sectionLink: Int): FunctionTest? {
         when(sectionLink) {
             1 -> {
                 return FunctionTest.Function1
             }
-            5-> {
+            2-> {
                 return FunctionTest.Function2
             }
         }
@@ -50,20 +50,20 @@ class ValidatorTest {
 
     @Test
     fun functionTester() {
-        enumValues<FunctionTest>().forEach {FUNCTION_TYPE ->
+        enumValues<FunctionTest>().forEach { FUNCTION_TYPE ->
             var i = 0
 
-            while (i <= 1000){
+            while (i <= 1000) {
                 val x = functionChecker(i)
-                if (i != 1000){
-                    if (x == FUNCTION_TYPE){
+                if (i != 1000) {
+                    if (x == FUNCTION_TYPE) {
                         break
                     }
-                } else if(i == 1000){
-                    break
+                } else if(i == 1000) {
+                    throw java.lang.NullPointerException("failed")
                 }
                 i++
-
+            }
         }
     }
 }
