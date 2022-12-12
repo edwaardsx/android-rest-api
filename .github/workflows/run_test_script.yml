@@ -15,10 +15,14 @@ jobs:
           java-version: 11
           distribution: 'temurin'
 
-      # Execute unit tests
-      - name: Unit Test
+      - name: Unit Test Stacktrace
         run: bash ./gradlew testDebugUnitTest --stacktrace
 
-      - name: Android Test Report
-        uses: asadmansr/android-test-report-action@v1.2.0
-        if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
+      - name: Test Report
+        uses: dorny/test-reporter@v1.6.0
+        if: ${{ always() }}
+        with:
+          name: Tests Output
+          path: ValidatorTest.kt
+          reporter: kotlin-junit
+          fail-on-error: true
