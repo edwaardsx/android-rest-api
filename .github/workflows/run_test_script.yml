@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     
     outputs:
-      output1: ${{ steps.unit-test.outputs.test }}
+      output1: ${{ steps.unit-test.outputs.status }}
     
     steps:
       - uses: actions/checkout@v3
