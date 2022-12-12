@@ -19,6 +19,7 @@ jobs:
         run: bash ./gradlew testDebugUnitTest --stacktrace
 
       - name: Unit Test Report
+        id: unit-test
         uses: asadmansr/android-test-report-action@v1.2.0
         if: always()
         
@@ -29,9 +30,5 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: "@everyone Failed Unit \n ${{ steps.unit-test.outputs.status }}"
-          run: |
-            if: [ "${{ steps.unit-test.outputs.status }}" == 'failed' ]; then
-            exit 1
-            fi
-          if: failure()
+          
             
