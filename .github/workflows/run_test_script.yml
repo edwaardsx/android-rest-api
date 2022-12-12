@@ -29,6 +29,6 @@ jobs:
           DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051823521803812924/Z6e8rvHqAH1B-eksg3EuEmvIZroJMfKwfGILUl8LlFcJokVZ8YgnZcwDutPeANOiWnVV"
         uses: Ilshidur/action-discord@master
         with:
-          args: "@everyone Failed Unit \n ${{ steps.unit-test.outputs.status }}"
+          args: "@everyone Failed Unit \n ${{ needs.Unit-Testing-Report.outputs.unit-test }}"
           
             
