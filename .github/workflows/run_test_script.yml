@@ -1,11 +1,11 @@
-name: Android CI
+name: Testing
 on:
   push:
     branches: [main]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  Unit-Testing-Report:
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
 
@@ -15,10 +15,10 @@ jobs:
           java-version: 11
           distribution: 'temurin'
 
-      - name: Unit Test Stacktrace
+      - name: Stacktrace
         run: bash ./gradlew testDebugUnitTest --stacktrace
 
-      - name: Test Report
-        uses: doanpt/AndroidTestReportAction@v1.1
+      - name: Unit Test Report
+        uses: asadmansr/android-test-report-action@v1.2.0
         if: always()
 
