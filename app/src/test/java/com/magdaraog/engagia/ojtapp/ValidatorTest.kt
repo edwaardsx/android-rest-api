@@ -1,7 +1,6 @@
 package com.magdaraog.engagia.ojtapp
 
 import com.google.common.truth.Truth.*
-import com.magdaraog.engagia.ojtapp.test.Validator
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -10,46 +9,41 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class ValidatorTest {
 
-    @Test
-    fun whenInputIsValid(){
-        val productCode = "Some random code"
-        val productName = "Some random name"
-
-        val result = Validator.validateInput(productCode, productName)
-        assertThat(result).isEqualTo(true)
-    }
-
-    @Test
-    fun whenInputIsInvalid(){
-        val productCode = ""
-        val productName = ""
-
-        val result = Validator.validateInput(productCode, productName)
-        assertThat(result).isEqualTo(false)
-    }
-
     enum class FunctionTest {
-        Function1,
-        Function2,
-        Function3,
-        Function4,
-        Function5
+        TEST,
+        SAMPLE,
+        TEST_SAMPLE,
+        TEST_TEST,
+        SAMPLE_SAMPLE
     }
 
     private fun functionChecker(sectionLink: Int): FunctionTest? {
         when(sectionLink) {
             1 -> {
-                return FunctionTest.Function1
+                return FunctionTest.TEST
             }
-            2-> {
-                return FunctionTest.Function2
+            12-> {
+                return FunctionTest.SAMPLE
             }
+            33-> {
+                return FunctionTest.TEST_SAMPLE
+            }
+            /*44-> {
+                return FunctionTest.TEST_TEST
+            }
+            55-> {
+                return FunctionTest.SAMPLE_SAMPLE
+            }*/
         }
         return null
     }
 
     @Test
     fun functionTester() {
+
+        val missingFunctions =  ArrayList<String>()
+        var errorMsg = "Cannot find function "
+
         enumValues<FunctionTest>().forEach { FUNCTION_TYPE ->
             var i = 0
 
@@ -57,13 +51,21 @@ class ValidatorTest {
                 val x = functionChecker(i)
                 if (i != 1000) {
                     if (x == FUNCTION_TYPE) {
+                        println("Found a function: $FUNCTION_TYPE, Found at position $i")
                         break
                     }
                 } else if(i == 1000) {
-                    throw java.lang.NullPointerException("failed")
+                    missingFunctions.add(FUNCTION_TYPE.toString())
                 }
                 i++
             }
+        }
+
+        if (missingFunctions.size != 0){
+            for (missingFunction in missingFunctions) {
+                errorMsg += missingFunction + ", "
+            }
+            fail(errorMsg)
         }
     }
 }
