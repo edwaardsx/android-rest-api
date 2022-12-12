@@ -20,9 +20,5 @@ jobs:
 
       - name: Test Report
         uses: dorny/test-reporter@v1.6.0
-        if: ${{ always() }}
-        with:
-          name: Tests Output
-          path: ValidatorTest.kt
-          reporter: java-junit
-          fail-on-error: true
+        if: always()
+
