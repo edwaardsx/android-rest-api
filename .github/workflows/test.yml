@@ -6,10 +6,18 @@ on:
 jobs:
   test:
     runs-on: macos-latest # or any other machine
-    steps:
     
-      - name: Unit Test
-        run: ./gradlew testDebugUnitTest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.8.0
+        with:
+          java-version: 11
+          distribution: 'temurin'
+
+      - name: Stacktrace
+        run: bash ./gradlew testDebugUnitTest --stacktrace
 
       - name: Upload Test Reports Folder
         uses: actions/upload-artifact@v2
