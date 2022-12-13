@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest # or any other machine
+    runs-on: macOS-12 soon # or any other machine
     
     steps:
       - uses: actions/checkout@v3
@@ -27,7 +27,7 @@ jobs:
           path: app/build/test-results # path to where the xml test results are stored
         
   report:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: test # The report job will run after test job
     if: always() # IMPORTANT: Execute report job regardless of status
     
@@ -39,14 +39,7 @@ jobs:
           name: reports
 
       - name: Android Test Report
+        id: test-report
         uses: asadmansr/android-test-report-action@v1.2.0
         if: always()
-        
-      - name: Upload to Discord
-        if: always()
-        uses: tsickert/discord-webhook@v5.3.0
-        with:
-          webhook-url:  "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
-          content: "Report Test"
-          filename: results.bin
       
