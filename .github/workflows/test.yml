@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on: macOS-12 soon # or any other machine
+    runs-on: macOS-12 # or any other machine
     
     steps:
       - uses: actions/checkout@v3
