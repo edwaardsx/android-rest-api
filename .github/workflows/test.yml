@@ -1,9 +1,14 @@
+name: Test
+on:
+  push:
+    branches: [main]
+
 jobs:
   test:
     runs-on: macos-latest # or any other machine
     steps:
-      ...
-      - name: Stacktrace
+    
+      - name: Unit Test
         run: bash ./gradlew testDebugUnitTest --stacktrace
 
       - name: Upload Test Reports Folder
@@ -27,7 +32,7 @@ jobs:
       - name: Android Test Report
         uses: asadmansr/android-test-report-action@v1.2.0
         
-        - name: Discord Notification
+      - name: Discord Notification
         if: failure()
         env:
           DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
