@@ -30,7 +30,7 @@ jobs:
       - name: Discord Notification
         if: failure()
         env:
-          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1052064972210978859/HeAxsPsmMz48s-W-ILTCdnRVYPkuNzTsnMEonOIWbw1HrDZNP0hBHL7EOP78VGWwJwDH"
+          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
         uses: Ilshidur/action-discord@master
         with:
           args: "@everyone Failed Unit \n ${{ steps.unit-test.outputs.output1 }}"
