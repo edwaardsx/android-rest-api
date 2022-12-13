@@ -24,7 +24,7 @@ jobs:
         run: bash ./gradlew testDebugUnitTest --stacktrace
 
       - name: Upload Test Reports Folder
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.1
         if: always() # IMPORTANT: Upload reports regardless of status
         with:
           name: reports
@@ -38,7 +38,7 @@ jobs:
     steps:
         
       - name: Download Test Reports Folder
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3.0.1
         with:
           name: reports
 
