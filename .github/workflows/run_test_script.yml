@@ -7,9 +7,6 @@ jobs:
   Unit-Testing-Report:
     runs-on: ubuntu-latest
     
-    outputs:
-      output1: ${{ steps.unit-test.outputs.message }}
-    
     steps:
       - uses: actions/checkout@v3
 
@@ -33,6 +30,6 @@ jobs:
           DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
         uses: Ilshidur/action-discord@master
         with:
-          args: "@everyone Failed Unit \n ${{ steps.unit-test.outputs.output1 }}"
+          args: "@everyone Failed Unit \n ${{ steps.unit-test.outputs.status_message }}"
           
             
