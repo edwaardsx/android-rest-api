@@ -9,7 +9,7 @@ jobs:
     steps:
     
       - name: Unit Test
-        run: bash ./gradlew testDebugUnitTest --stacktrace
+        run: ./gradlew testDebugUnitTest
 
       - name: Upload Test Reports Folder
         uses: actions/upload-artifact@v2
@@ -31,11 +31,3 @@ jobs:
 
       - name: Android Test Report
         uses: asadmansr/android-test-report-action@v1.2.0
-        
-      - name: Discord Notification
-        if: failure()
-        env:
-          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
-        uses: Ilshidur/action-discord@master
-        with:
-          args: "@everyone Failed Unit \n ${{ steps.result.outputs.test-results }}"
