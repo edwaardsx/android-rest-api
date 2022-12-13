@@ -9,9 +9,6 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3.5.1
 
       - name: Setup Java JDK
         uses: actions/setup-java@v3.8.0
@@ -35,9 +32,6 @@ jobs:
     if: always() # IMPORTANT: Execute report job regardless of status
     
     steps:
-    
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3.5.1
         
       - name: Download Test Reports Folder
         uses: actions/download-artifact@v2
@@ -50,5 +44,8 @@ jobs:
         
       - name: Upload to Discord
         uses: sinshutu/upload-to-discord@v2.0.0
-            
+        env:
+          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
+        with:
+          args: "Output"
       
