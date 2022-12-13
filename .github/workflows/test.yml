@@ -36,16 +36,18 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: reports
+          id: report
 
       - name: Android Test Report
         uses: asadmansr/android-test-report-action@v1.2.0
-        
+          
       - name: Discord Notification
         if: failure()
+        uses: sinshutu/upload-to-discord@master
         env:
           DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
-        uses: Ilshidur/action-discord@master
         with:
-          args: "@everyone Failed Unit \n ${{ needs.test.outputs.test-results }}"
+          args: "@everyone Failed Unit \n ${{ steps.report.outputs.reports }}"
+            
       
       
