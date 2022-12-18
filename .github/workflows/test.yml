@@ -43,6 +43,7 @@ jobs:
         if: always()
         
       - name: Discord
+        if: always()
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
