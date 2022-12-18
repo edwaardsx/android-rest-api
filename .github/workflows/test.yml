@@ -42,11 +42,11 @@ jobs:
         uses: asadmansr/android-test-report-action@v1.2.0
         if: always()
         
-      - name: Android Test Report
+      - name: Discord Notification
         if: always()
-        uses: tsickert/discord-webhook@v5.3.0
+        env:
+          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
+        uses: Ilshidur/action-discord@master
         with:
-          webhook-url: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
-          filename: \app\build\test-results\testDebugUnitTest\binary\results.bin
-          content: "@everyone Failed Unit\n"
+          args: "@everyone **Failed \n ${{ steps.test-report.outputs.test-result }}**"
       
