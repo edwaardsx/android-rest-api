@@ -27,7 +27,7 @@ jobs:
           path: app/build/test-results # path to where the xml test results are stored
         
   report:
-    runs-on: ubuntu-22.04
+    runs-on: linux-latest
     needs: test # The report job will run after test job
     if: always() # IMPORTANT: Execute report job regardless of status
     
@@ -47,5 +47,5 @@ jobs:
         env:
           DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
         with:
-          args: results.bin
+          args: ./results.bin
       
