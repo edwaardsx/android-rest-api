@@ -28,12 +28,6 @@ class ValidatorTest {
             33-> {
                 return FunctionTest.TEST_SAMPLE
             }
-            /*44-> {
-                return FunctionTest.TEST_TEST
-            }
-            55-> {
-                return FunctionTest.SAMPLE_SAMPLE
-            }*/
         }
         return null
     }
