@@ -21,6 +21,10 @@ jobs:
       - name: Build and test
         run: |
           bash ./gradlew testDebugUnitTest --stacktrace
+          
+      - name: Android Test Report
+        uses: asadmansr/android-test-report-action@v1.2.0
+        if: always()
         
       - name: Capture error report
         if: always()
