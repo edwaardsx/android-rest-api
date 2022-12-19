@@ -27,7 +27,7 @@ jobs:
           path: app/build/test-results # path to where the xml test results are stored
         
   report:
-    runs-on: linux-latest
+    runs-on: Ubuntu 20.04
     needs: test # The report job will run after test job
     if: always() # IMPORTANT: Execute report job regardless of status
     
