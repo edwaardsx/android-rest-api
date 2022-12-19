@@ -47,5 +47,5 @@ jobs:
         env:
           DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
         with:
-          args: ./results.bin
+          args: README.md
       
