@@ -1,47 +1,58 @@
-name: Android Test
+name: Test
 on:
   push:
     branches: [main]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  Test:
+    runs-on: macOS-12
+    
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.2.0
 
       - name: Setup Java JDK
         uses: actions/setup-java@v3.8.0
         with:
           java-version: 11
           distribution: 'temurin'
-          
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+
+      - name: Stacktrace
+        run: bash ./gradlew testDebugUnitTest --stacktrace
+
+      - name: Upload Test Reports Folder
+        uses: actions/upload-artifact@v3.1.1
+        if: always()
+        with:
+          name: reports
+          path: app/build/test-results
         
-      - name: Build and test
-        run: |
-          bash ./gradlew testDebugUnitTest --stacktrace
-          
+  Report:
+    runs-on: Ubuntu-latest
+    needs: Test
+    if: always()
+    
+    steps:
+      - name: Download Test Reports Folder
+        uses: actions/download-artifact@v3.0.1
+        with:
+          name: reports
+
       - name: Android Test Report
         uses: asadmansr/android-test-report-action@v1.2.0
         if: always()
-        
-      - name: Capture error report
-        if: always()
-        run: |
-          adb logcat -d > logcat.txt
-          
-      - name: Upload error report
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: error-report
-          path: logcat.txt
 
       - name: Send file to discord channel
         if: always()
+        id: send-file
         uses: sinshutu/upload-to-discord@master
-        env:
-          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1052064972210978859/HeAxsPsmMz48s-W-ILTCdnRVYPkuNzTsnMEonOIWbw1HrDZNP0hBHL7EOP78VGWwJwDH"
         with:
-          args: logcat.txt
+          args: ./app/results.bin
+          
+      - name: Discord notification
+        if: always()
+        env:
+          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "@everyone **Failed unit \n ${{ steps.send-file.outputs.results.bin }}"
+          
