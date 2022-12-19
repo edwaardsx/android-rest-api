@@ -5,7 +5,7 @@ on:
 
 jobs:
   Test:
-    runs-on: macOS-12
+    runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@v3.2.0
@@ -19,27 +19,9 @@ jobs:
       - name: Stacktrace
         run: bash ./gradlew testDebugUnitTest --stacktrace
 
-      - name: Upload Test Reports Folder
-        uses: actions/upload-artifact@v3.1.1
-        if: always()
-        with:
-          name: reports
-          path: app/build/test-results
-        
-  Report:
-    runs-on: Ubuntu-latest
-    needs: Test
-    if: always()
-    
-    steps:
-      - name: Download Test Reports Folder
-        uses: actions/download-artifact@v3.0.1
-        with:
-          name: reports
-
       - name: Android Test Report
         uses: asadmansr/android-test-report-action@v1.2.0
-        if: always()
+        if: ${{ always() }}
 
       - name: Discord notification
         if: always()
