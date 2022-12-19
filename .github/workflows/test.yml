@@ -38,15 +38,14 @@ jobs:
           name: reports
 
       - name: Android Test Report
-        id: test-report
         uses: asadmansr/android-test-report-action@v1.2.0
         if: always()
         
-      - name: Discord Notification
+      - name: Send file to discord channel
         if: always()
+        uses: sinshutu/upload-to-discord@master
         env:
           DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
-        uses: Ilshidur/action-discord@master
         with:
-          args: "@everyone **Failed \n ${{ steps.test-report.outputs.test-result }}**"
+          args: app/build/test-results
       
