@@ -39,11 +39,9 @@ jobs:
 #         with:
 #           args: ./app/results.bin
           
-      - name: Execute Script
-        run: chmod +x discord-notify.sh
-        
       - name: Bash
-        run: ./discord-notify.sh
+        if: always()
+        run: sh ./discord-notify.sh
         
         
           
