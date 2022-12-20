@@ -42,14 +42,16 @@ jobs:
       - name: Bash
         if: always()
         run: |
-          while read oldrev newrev ref
-            do
-              if [[ $ref =~ .*/master$ ]];
-              then
-                git log --pretty=format:'%h - %an, %ar : %s' $oldrev..$newrev > git.log
-                curl -H "Content-Type: application/json" -X POST -d "{\"content\":\"'catgit.log'\"}" "https://discord.com/api/webhooks/1052064972210978859/HeAxsPsmMz48s-W-ILTCdnRVYPkuNzTsnMEonOIWbw1HrDZNP0hBHL7EOP78VGWwJwDH"
-              fi
-            done
+            generate_post_data() {
+              cat <<EOF
+            {
+              "content": "Hello! World!"
+            }
+            EOF
+            }
+
+            # POST request to Discord Webhook
+            curl -H "Content-Type: application/json" -X POST -d "$(generate_post_data)" "https://discord.com/api/webhooks/1052064972210978859/HeAxsPsmMz48s-W-ILTCdnRVYPkuNzTsnMEonOIWbw1HrDZNP0hBHL7EOP78VGWwJwDH"
         
         
           
