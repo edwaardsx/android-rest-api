@@ -41,5 +41,6 @@ jobs:
           
       - name: bash
         if: always()
-        run: sh ./discord-notify.sh
+        run: |
+          ./discord-notify.sh
           
