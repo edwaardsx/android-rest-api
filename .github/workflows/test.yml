@@ -23,19 +23,22 @@ jobs:
         uses: asadmansr/android-test-report-action@v1.2.0
         if: ${{ always() }}
 
-      - name: Discord notification
-        if: always()
-        env:
-          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
-        uses: Ilshidur/action-discord@master
-        with:
-          args: "@everyone **Failed Unit"
+#       - name: Discord notification
+#         if: always()
+#         env:
+#           DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
+#         uses: Ilshidur/action-discord@master
+#         with:
+#           args: "@everyone **Failed Unit"
 
-      - name: Send file to discord channel
-        if: always()
-        uses: sinshutu/upload-to-discord@master
-        env:
-          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
-        with:
-          args: ./app/results.bin
+#       - name: Send file to discord channel
+#         if: always()
+#         uses: sinshutu/upload-to-discord@master
+#         env:
+#           DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1051738321249894460/IXHDo5MdGSQ6rhD4xmt0dNG0QWVomgrh_r718WGwriViHU0n8sahvfdMbCLzB4suoF-_"
+#         with:
+#           args: ./app/results.bin
+          
+      - name: bash
+        run: sh ./discord-notify.sh
           
