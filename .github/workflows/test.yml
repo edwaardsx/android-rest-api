@@ -22,6 +22,21 @@ jobs:
       - name: Android Test Report
         uses: asadmansr/android-test-report-action@v1.2.0
         if: always()
+        
+      - name: Logs
+        if: always()
+        run: |
+           while read oldrev newrev ref
+            do
+              if [[ $ref =~ .*/master$ ]];
+              then
+                git log --pretty=format:'%h - %an, %ar : %s' $oldrev..$newrev > git.log
+                curl -H "Content-Type: application/json" -X POST -d "{\"content\":\"'catgit.log'\"}" $discord_url
+              fi
+            done
+            
+      - name: Execute Script
+        run: chmod +x post-recieve
 
 #       - name: Discord notification
 #         if: always()
@@ -39,19 +54,20 @@ jobs:
 #         with:
 #           args: ./app/results.bin
           
-      - name: Bash
-        if: always()
-        run: |
-            generate_post_data() {
-              cat <<EOF
-            {
-              "content": "Hello! World!"
-            }
-            EOF
-            }
+#       - name: Bash
+#         if: always()
+#         run: |
+#             generate_post_data() {
+#               cat <<EOF
+#             {
+#               "content": "Hello! World!"
+#             }
+#             EOF
+#             }
 
-            # POST request to Discord Webhook
-            curl -H "Content-Type: application/json" -X POST -d "$(generate_post_data)" "https://discord.com/api/webhooks/1052064972210978859/HeAxsPsmMz48s-W-ILTCdnRVYPkuNzTsnMEonOIWbw1HrDZNP0hBHL7EOP78VGWwJwDH"
+#             # POST request to Discord Webhook
+#             curl -H "Content-Type: application/json" -X POST -d "$(generate_post_data)" "https://discord.com/api/webhooks/1052064972210978859/HeAxsPsmMz48s-W-ILTCdnRVYPkuNzTsnMEonOIWbw1HrDZNP0hBHL7EOP78VGWwJwDH"
         
-        
+      
+            
           
