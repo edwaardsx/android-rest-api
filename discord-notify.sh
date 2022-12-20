@@ -5,7 +5,7 @@ discord_url="https://discord.com/api/webhooks/1052064972210978859/HeAxsPsmMz48s-
 generate_post_data() {
   cat <<EOF
 {
-  "content": "This is a sample message using linux script!",
+  "content": "Hello! World!"
 }
 EOF
 }
