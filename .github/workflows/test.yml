@@ -41,9 +41,5 @@ jobs:
           
       - name: Execute Script
         if: always()
-        run: chmod +x discord-notify.sh
-        
-      - name: Bash
-        if: always()
-        run: ./discord-notify.sh
+        run: chmod +x ./discord-notify.sh
           
