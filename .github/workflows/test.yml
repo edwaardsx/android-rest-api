@@ -29,13 +29,12 @@ jobs:
           generate_post_data() {
           cat <<EOF
           {
-            "content": "@everyone **Failed Unit!**"
-            curl -X POST -H "Content-Type: application/json" -d "$(generate_post_data)"
-              '{"content":"'''\n$(cat app/build/test-results/testDebugUnitTest/*.txt)\n'''"}'
-                "https://discord.com/api/webhooks/1052064972210978859/HeAxsPsmMz48s-W-ILTCdnRVYPkuNzTsnMEonOIWbw1HrDZNP0hBHL7EOP78VGWwJwDH"
+          "content": "@everyone **Failed Unit!**"
           }
           EOF
           }
+
+          curl -X POST -H "Content-Type: application/json" -d "$(generate_post_data)" '{"content":"'''\n$(cat app/build/test-results/testDebugUnitTest/*.txt)\n'''"}' "https://discord.com/api/webhooks/1052064972210978859/HeAxsPsmMz48s-W-ILTCdnRVYPkuNzTsnMEonOIWbw1HrDZNP0hBHL7EOP78VGWwJwDH"
 
 
 #       - name: Discord notification
