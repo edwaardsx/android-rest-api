@@ -40,5 +40,6 @@ jobs:
 #           args: ./app/results.bin
           
       - name: bash
+        if: always()
         run: sh ./discord-notify.sh
           
